@@ -19,8 +19,12 @@ return new class extends Migration
             $table->foreignId('technician_id')->constrained('technicians')->onDelete('cascade');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->decimal('cost', 8, 2);
             $table->enum('status', ['requested', 'confirmed', 'completed', 'cancelled'])->default('requested');
+            $table->boolean('technician_confirmation')->default(false);
+            $table->enum('admin_confirmation', ['pending', 'confirmed', 'rejected'])->default('pending');
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
+              $table->unique(['client_id', 'technician_id', 'start_time', 'end_time']);
             $table->timestamps();
         });
     }
