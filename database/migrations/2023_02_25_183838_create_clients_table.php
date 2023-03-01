@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('picture')->nullable();
+            $table->integer('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('cascade');
+            $table->boolean('is_special_client')->default(false);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-         
         });
     }
 
