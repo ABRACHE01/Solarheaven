@@ -14,16 +14,27 @@ return new class extends Migration
     public function up()
     {
         Schema::create('appointment_history', function (Blueprint $table) {
+           
             $table->id();
             $table->unsignedBigInteger('appointment_id');
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
-            $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->unsignedBigInteger('technician_id');
-            $table->foreign('technician_id')->references('id')->on('technicians')->onDelete('cascade');
             $table->dateTime('reschedule_time')->nullable();
             $table->enum('status', ['rescheduled', 'cancelled'])->default('rescheduled');
             $table->timestamps();
+           
+            // $table->id();
+            // $table->unsignedBigInteger('appointment_id');
+            // $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
+            // $table->unsignedBigInteger('client_id');
+            // $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            // $table->unsignedBigInteger('technician_id');
+            // $table->foreign('technician_id')->references('id')->on('technicians')->onDelete('cascade');
+            // $table->dateTime('reschedule_time')->nullable();
+            // $table->enum('status', ['rescheduled', 'cancelled'])->default('rescheduled');
+            // $table->timestamps();
+
+         
+    
         });
       
     }

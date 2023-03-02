@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Admin extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'picture', 'phone_number', 'address', 'city_id', 'is_special_client', 'user_id',
+        'name', 'picture', 'phone_number', 'user_id',
     ];
-
+    
     public function user()
     {
         return $this->hasOne(User::class);
@@ -23,9 +23,9 @@ class Client extends Model
         return $this->hasMany(Appointment::class);
     }
 
-    public function reviews()
+    public function services()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Service::class);
     }
 
 
