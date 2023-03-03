@@ -16,4 +16,11 @@ class City extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    
 }

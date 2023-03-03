@@ -10,7 +10,7 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'price', 'admin_id',
+        'name', 'description','price', 'admin_id',
     ];
     public function admin()
     {
@@ -20,5 +20,9 @@ class Service extends Model
     public function appointments()
     {
         return $this->belongsToMany(Appointment::class, 'appointment_services')->withTimestamps();
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }

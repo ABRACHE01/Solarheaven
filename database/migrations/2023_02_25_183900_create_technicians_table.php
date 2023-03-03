@@ -15,9 +15,6 @@ return new class extends Migration
     {
         Schema::create('technicians', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('picture')->nullable();
-            $table->integer('phone_number')->nullable();
             $table->string('qualification');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

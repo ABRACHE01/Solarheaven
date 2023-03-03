@@ -10,7 +10,8 @@ class Technician extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'picture', 'phone_number', 'qualification', 'user_id',
+         'qualification',
+          'user_id',
     ];
     public function user()
     {

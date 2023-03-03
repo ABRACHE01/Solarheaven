@@ -21,8 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-         'role_id',
-          'is_active',
+        'role_id',
+        'is_active',
+        'last_login',
+        'phone_number',
+        'city_id', 
     ];
 
     /**
@@ -63,10 +66,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
    
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+    public function images()
+{
+    return $this->hasMany(Image::class);
+}
 
 }
