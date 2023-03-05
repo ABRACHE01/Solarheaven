@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade');
-            $table->unsignedTinyInteger('rating');
+            $table->unsignedTinyInteger('rating')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });

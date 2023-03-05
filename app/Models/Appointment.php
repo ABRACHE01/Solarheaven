@@ -12,7 +12,6 @@ class Appointment extends Model
     protected $fillable = [
         'client_id', 'technician_id','localisation', 'city_id', 'start_time', 'end_time', 'status', 'admin_id',
     ];
-
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -33,7 +32,6 @@ class Appointment extends Model
         return $this->belongsTo(Admin::class);
     }
 
-
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -53,6 +51,10 @@ class Appointment extends Model
     {
         return $this->hasMany(Payment::class);
     }
-    
- 
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
 }

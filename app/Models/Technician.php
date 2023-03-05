@@ -17,4 +17,9 @@ class Technician extends Model
     {
         return $this->hasOne(User::class);
     }
+    
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

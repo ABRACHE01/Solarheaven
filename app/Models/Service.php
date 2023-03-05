@@ -19,10 +19,11 @@ class Service extends Model
 
     public function appointments()
     {
-        return $this->belongsToMany(Appointment::class, 'appointment_services')->withTimestamps();
+        return $this->hasMany(Appointment::class);
     }
+
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointment_services', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade');
-            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('appointment_services', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade');
+        //     $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**
