@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
  */
@@ -19,9 +19,9 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => rand(1, 10),
-            'service_id' => rand(1, 10),
-            'image' => $this->faker->imageUrl(640, 480),
+            'url' => $this->faker->imageUrl(),
+            'imageable_id' => rand(1, 10),
+            'imageable_type' => $this->faker->randomElement(['App\\Models\\Service', 'App\\Models\\User']),   
         ];
     }
 

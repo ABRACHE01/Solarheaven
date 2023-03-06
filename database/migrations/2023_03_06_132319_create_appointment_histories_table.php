@@ -13,18 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointment_history', function (Blueprint $table) {
-           
+        Schema::create('appointment_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('appointment_id');
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
             $table->dateTime('reschedule_time')->nullable();
             $table->enum('status', ['rescheduled', 'cancelled'])->default('rescheduled');
             $table->timestamps();
-
-    
         });
-      
     }
 
     /**
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment_history');
+        Schema::dropIfExists('appointment_histories');
     }
 };

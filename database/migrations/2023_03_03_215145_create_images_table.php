@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('url');
             $table->unsignedBigInteger('imageable_id');
             $table->string('imageable_type');
-            $table->foreign('imageable_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('imageable_id')->references('id')->on('services')->onDelete('cascade');
             $table->timestamps();
         });
  

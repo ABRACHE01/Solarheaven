@@ -1,11 +1,12 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\Role;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\City;
 
-class RoleSeeder extends Seeder
+class CitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +15,6 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'technician']);
-        Role::create(['name' => 'client']);
+        City::factory()->count(50)->create();
     }
 }

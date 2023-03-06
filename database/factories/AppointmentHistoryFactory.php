@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AppointmentHistory>
  */
-class AppointementHistoryFactory extends Factory
+class AppointmentHistoryFactory  extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,7 @@ class AppointementHistoryFactory extends Factory
 
     public function definition()
     {
-        return [
+        return [   
             'appointment_id' => Appointment::factory(),
             'reschedule_time' => $this->faker->dateTime(),
             'status' => $this->faker->randomElement(['rescheduled', 'cancelled']),
