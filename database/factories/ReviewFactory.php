@@ -22,7 +22,6 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            'client_id' => Client::factory(),
             'appointment_id' => Appointment::factory(),
             'rating' => $this->faker->numberBetween(1, 5),
             'comment' => $this->faker->text(200),

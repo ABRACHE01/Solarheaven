@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->enum('status', ['requested', 'confirmed', 'completed', 'cancelled'])->default('requested');
+            $table->enum('status', ['requested', 'confirmed','completed', 'cancelled'])->default('requested');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
             $table->unique(['client_id', 'technician_id', 'start_time', 'end_time']);

@@ -21,6 +21,7 @@ class NotificationFactory extends Factory
         return [
             'message' => $this->faker->sentence,
             'user_id' => \App\Models\User::factory(),
+            'appointment_id' => \App\Models\Appointment::factory(),
         ];
     }
 }

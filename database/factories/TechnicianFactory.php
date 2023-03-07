@@ -21,6 +21,8 @@ class TechnicianFactory  extends Factory
     {
         return [
             'qualification' => $this->faker->sentence,
+            'bio' => $this->faker->text,
+            'years_of_experience' => $this->faker->numberBetween(1, 20),
             'user_id' => \App\Models\User::factory(),
         ];
     }

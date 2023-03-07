@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->boolean('is_active')->default(false);
             $table->timestamp('last_login')->nullable();
+            $table->date('join_date')->nullable();
+            $table->string('image')->nullable();
             $table->string('phone_number')->nullable();
             $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('cascade');
             $table->rememberToken();

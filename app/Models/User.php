@@ -24,6 +24,8 @@ class User extends Authenticatable
         'role_id',
         'is_active',
         'last_login',
+        'join_date',
+        'image',
         'phone_number',
         'city_id', 
     ];
@@ -77,9 +79,5 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
 
 }

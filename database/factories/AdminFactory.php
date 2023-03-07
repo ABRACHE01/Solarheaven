@@ -20,6 +20,7 @@ class AdminFactory extends Factory
     {
         return [
              'user_id' => \App\Models\User::factory(),
+                'bio' => $this->faker->text,
         ];
     }
 

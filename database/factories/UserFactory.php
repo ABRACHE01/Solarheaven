@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'city_id' => City::factory(),
             'last_login' => $this->faker->dateTime(),
             'role_id'=> mt_rand(1,3),
+            'join_date' => $this->faker->dateTime(),
             'is_active' => $this->faker->boolean(),
         ];
         

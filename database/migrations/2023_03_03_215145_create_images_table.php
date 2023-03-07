@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('service_id')->nullable()->constrained('services')->onDelete('cascade');
             $table->string('url');
-            $table->unsignedBigInteger('imageable_id');
-            $table->string('imageable_type');
             $table->timestamps();
         });
  

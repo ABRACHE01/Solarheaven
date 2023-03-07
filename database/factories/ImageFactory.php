@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Image;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
@@ -20,8 +21,7 @@ class ImageFactory extends Factory
     {
         return [
             'url' => $this->faker->imageUrl(),
-            'imageable_id' => rand(1, 10),
-            'imageable_type' => $this->faker->randomElement(['App\\Models\\Service', 'App\\Models\\User']),   
+            'service_id' => Service::factory(),
         ];
     }
 

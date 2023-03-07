@@ -22,8 +22,9 @@ class Service extends Model
         return $this->hasMany(Appointment::class);
     }
 
+
     public function images()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->hasMany(Image::class);
     }
 }
