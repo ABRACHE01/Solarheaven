@@ -18,8 +18,10 @@ return new class extends Migration
             $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade');
             $table->unsignedDecimal('amount', 8, 2);
             $table->unsignedDecimal('extra_charges', 8, 2)->nullable();
-            $table->text('description')->nullable();
-            $table->enum('method', ['cash', 'card', 'paypal']);
+            $table->dateTime('paid_at');
+            $table->text('note')->nullable();
+            $table->enum('method', ['cash', 'card']);
+            $table->enum('status', ['pending','paid','refunded','failed'])->default('pending');
             $table->timestamps();
         });
         

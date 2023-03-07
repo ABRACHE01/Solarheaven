@@ -22,8 +22,10 @@ class PaymentFactory extends Factory
             'appointment_id' => \App\Models\Appointment::factory(),
             'amount' => $this->faker->randomFloat(2, 0, 1000),
             'extra_charges' => $this->faker->randomFloat(2, 0, 1000),
-            'description' => $this->faker->text,
-            'method' => $this->faker->randomElement(['cash', 'card', 'paypal']),
+            'paid_at' => $this->faker->dateTime,
+            'status' => $this->faker->randomElement(['pending','paid','refunded','failed']),
+            'note' => $this->faker->text,
+            'method' => $this->faker->randomElement(['cash', 'card']),
         ];
     }
 }

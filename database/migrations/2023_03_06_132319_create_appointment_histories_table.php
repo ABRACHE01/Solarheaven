@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('appointment_id');
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
-            $table->dateTime('reschedule_time')->nullable();
+            $table->text('reason')->nullable();
             $table->enum('status', ['rescheduled', 'cancelled'])->default('rescheduled');
             $table->timestamps();
         });

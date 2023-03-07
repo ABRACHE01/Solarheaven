@@ -3,6 +3,7 @@
 namespace Database\Factories;
 use App\Models\Appointment;
 use App\Models\AppointmentHistory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class AppointmentHistoryFactory  extends Factory
     {
         return [   
             'appointment_id' => Appointment::factory(),
-            'reschedule_time' => $this->faker->dateTime(),
+            'reason' => $this->faker->text(),
             'status' => $this->faker->randomElement(['rescheduled', 'cancelled']),
         ];
     }

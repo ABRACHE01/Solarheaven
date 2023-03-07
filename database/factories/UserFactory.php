@@ -20,7 +20,7 @@ class UserFactory extends Factory
     protected $model = User::class;
     public function definition()
     { 
-      
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'city_id' => City::factory(),
             'last_login' => $this->faker->dateTime(),
             'role_id'=> mt_rand(1,3),
+            'image' => $this->faker->imageUrl(),
             'join_date' => $this->faker->dateTime(),
             'is_active' => $this->faker->boolean(),
         ];

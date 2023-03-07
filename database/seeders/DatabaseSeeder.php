@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             TechnisianSeeder::class,
             AppointmentHistorySeeder::class,
             NotificationSeeder::class,
-           PaymentSeeder::class,
+            PaymentSeeder::class,
         ]);
     }
 }
