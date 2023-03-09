@@ -14,5 +14,6 @@ class Image extends Model
     {
         return $this->belongsTo(Service::class);
     }
+    
 
 }

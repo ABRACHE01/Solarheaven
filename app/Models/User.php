@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\City;
+use App\Models\Technician;
+use App\Models\Role;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,20 +50,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $table = 'users';
 
-    public function client()
+    public function city()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(City::class);
     }
 
     public function technician()
     {
-        return $this->belongsTo(Technician::class);
+        return $this->hasOne(Technician::class);
+    }
+
+    public function client()
+    {
+        return $this->hasOne(Client::class);
     }
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->hasOne(Client::class);
     }
 
     public function notifications()
@@ -69,11 +77,6 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-   
     public function role()
     {
         return $this->belongsTo(Role::class);

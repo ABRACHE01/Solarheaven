@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Appointment;
+use App\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +14,7 @@ class Admin extends Model
 
     protected $fillable = [
          'user_id',
+         'bio',
     ];
     
     public function user()
