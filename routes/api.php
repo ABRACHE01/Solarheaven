@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\TechnicianController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,14 +18,18 @@ use App\Http\Controllers\ServiceController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::apiResource('cities', CityController::class);
-Route::apiResource('tech', TechnicianController::class);
+// Route::apiResource('cities', CityController::class);
+// Route::apiResource('tech', TechnicianController::class);
 
-Route::get('cities/{city}/sort', [CityController::class, 'sort_by_city']);
+// Route::get('cities/{city}/sort', [CityController::class, 'sort_by_city']);
 
-Route::apiResource('services', ServiceController::class);
+// Route::apiResource('services', ServiceController::class);
+
+// Route::apiResource('reviews', ReviewController::class);
+
+
  

@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'image' => $this->faker->imageUrl(),
             'join_date' => $this->faker->dateTime(),
             'is_active' => $this->faker->boolean(),
+            
         ];
         
     }

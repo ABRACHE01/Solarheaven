@@ -19,6 +19,11 @@ class Review extends Model
     {
         return $this->belongsTo(Appointment::class);
     }
+
+    public function client()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
     
  
 }
