@@ -28,8 +28,9 @@
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
                     @else
                     <a href="{{ route('services.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">services</a>
-                    <a href="{{ route('cities.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">city</a>
-                    <a href="{{ route('tech.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">technician</a>
+                    <a href="{{ route('cities.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">cities</a>
+                    <a href="{{ route('tech.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">technicians</a>
+                    <a href="{{ route('clients.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">clients</a>
                     <a href="{{ route('appointments.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">appointements</a>
                         <a href="{{ route('login') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
                         @if (Route::has('register'))
