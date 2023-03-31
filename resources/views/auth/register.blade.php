@@ -35,12 +35,15 @@
                           </span>
                       @enderror
                         
-                      {{-- <select name="city_id" class="form-control @error('city_id') is-invalid @enderror" required>
-                        <option value="">Select City</option>
-                        @foreach ($cities as $city)
-                            <option value="{{ $city->id }}">{{ $city->name }}</option>
-                        @endforeach
-                    </select> --}}
+                      
+                    <div class="input-group mb-3">
+                      <label class="input-group-text form-control @error('city_id') is-invalid @enderror value="{{ old('city_id') }}""  for="city_id">City</label>
+                      <select class="form-select" name="city_id" id="city_id">
+                        @foreach($cities as $city)
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                      @endforeach
+                      </select>
+                    </div>
 
                    
                     @error('city_id')

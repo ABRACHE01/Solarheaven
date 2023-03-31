@@ -7,16 +7,24 @@ use App\Models\User;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        
+        $this->middleware('can:all-clients')->only(['index']);
+        $this->middleware('can:show-client')->only(['show']);
+        $this->middleware('can:delete-client')->only(['destroy']);
+    }
     public function index()
     {
-        $users = user::with('client')->where('role_id', 3)->get();
+        $users = Client::with('user')->latest()->paginate(10);
         return view('clients.index', compact('users'));
     }
 
     public function show(Request $request, $id)
     {
-        $client = Client::with('user')->find($id);
-        return view('clients.show', compact('client'));
+        $user= user::with('client')->find($id);
+        return view('clients.show', compact('user'));
     }
 
 

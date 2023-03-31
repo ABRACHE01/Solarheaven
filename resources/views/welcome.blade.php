@@ -26,12 +26,13 @@
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                        <a href="{{ route('services.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">services</a> 
+                       <a href="{{ route('cities.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">cities</a>
+                        <a href="{{ route('tech.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">technicians</a>
+                        <a href="{{ route('admins.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">admins</a>
+                        <a href="{{ route('clients.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">clients</a>
+                        <a href="{{ route('appointments.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">appointements</a>
                     @else
-                    <a href="{{ route('services.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">services</a>
-                    <a href="{{ route('cities.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">cities</a>
-                    <a href="{{ route('tech.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">technicians</a>
-                    <a href="{{ route('clients.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">clients</a>
-                    <a href="{{ route('appointments.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">appointements</a>
                         <a href="{{ route('login') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>

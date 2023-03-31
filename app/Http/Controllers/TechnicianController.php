@@ -10,6 +10,14 @@ use App\Models\City;
 class TechnicianController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('can:create-technician')->only(['create', 'store']);
+        $this->middleware('can:delete-technician')->only(['destroy']);
+    }
+    
     public function index()
     {
 
@@ -48,7 +56,7 @@ class TechnicianController extends Controller
         }
         else
         {
-            $image_name = 'default.png';
+            $image_name = 'technician.png';
         }
 
         
@@ -59,11 +67,11 @@ class TechnicianController extends Controller
             'password' => hash::make($request->password),
             'phone_number' => $request->phone_number,
             'image' => $image_name,
-            'role_id' => 2,
             'city_id' => $request->city_id,
         ]);
 
-        
+         $user->assignRole('technician');
+
 
         $technician = Technician::create([
             'qualification' => $request->qualification,

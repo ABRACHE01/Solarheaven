@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        
+        $this->middleware('can:create-city')->only(['create', 'store']);
+        $this->middleware('can:delete-city')->only(['destroy']);
+    }
     public function index()
     {
         $cities = City::all();
@@ -29,36 +36,15 @@ class CityController extends Controller
 
         return redirect()->route('cities.index')->with('success', 'City created successfully');
     }
-
     public function show(City $city)
     {
         return view('cities.index', compact('city'));
     }
-
-    // public function edit(City $city)
-    // {
-    //     return view('cities.edit', compact('city'));
-    // }
-
-    // public function update(Request $request, City $city)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //     ]);
-
-    //     $city->name = $request->name;
-    //     $city->country_id = $request->country_id;
-    //     $city->save();
-
-    //     return redirect()->route('cities.index')->with('success', 'City updated successfully');
-    // }
-
     public function destroy(City $city)
     {
         $city->delete();
         return redirect()->route('cities.index')->with('success', 'City deleted successfully');
     }
-
     public function sort_by_city($id)
     {
         $city = City::find($id);

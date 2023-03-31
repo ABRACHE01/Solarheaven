@@ -14,9 +14,6 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // if i wanted it to apply in a specific methods in the controller
-        //  $this->middleware('auth')->only(['create','edit','update','destroy']);
-    //there is a methode like only its name is excepte
     }
 
     public function index($id)

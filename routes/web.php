@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppointementController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::Resource('tech', TechnicianController::class);
 
 Route::resource('appointments', AppointementController::class);
 
+Route::resource('admins', AdminController::class);
+
 
 
 Route::get('cities/{city}/sort', [CityController::class, 'sort_by_city']);
@@ -46,7 +49,6 @@ Route::resource('clients', ClientController::class);
 Route::get('profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
 Route::put('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('profile/delete/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 
 Auth::routes();
 

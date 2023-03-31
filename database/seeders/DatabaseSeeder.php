@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            RoleSeeder::class,
+        
             UserSeeder::class,
             AdminSeeder::class,
             ClientSeeder::class,
@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             AppointmentHistorySeeder::class,
             NotificationSeeder::class,
             PaymentSeeder::class,
+            RolesAndPermissionsSeeder::class,
         ]);
     }
 }

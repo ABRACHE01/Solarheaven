@@ -2,33 +2,40 @@
 
 @section('content')
 <div class="container">
+
+    <a href="{{ route('appointments.create') }}" class="btn btn-primary">Add Appointment</a>
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Client Name</th>
-                                <th>Technician Name</th>
+                                <th>ID</th>
+                                <th>Client</th>
                                 <th>Service</th>
-                                <th>Location</th>
+                                <th>Technician</th>
+                                <th>City</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
+                                <th>Admin</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($appointments as $appointment)
                                 <tr>
-                                    <td>{{ $appointment->client->user->name }}</td>
-                                    <td>{{ $appointment->technician->user->name }}</td>
+                                    <td>{{ $appointment->id }}</td>
+                                    <td>{{$appointment->client->user->name}}</td>
                                     <td>{{ $appointment->service->name }}</td>
+                                    <td>{{ $appointment->technician->user->name }}</td>
                                     <td>{{ $appointment->localisation }}, {{ $appointment->city->name }}</td>
                                     <td>{{ $appointment->start_time }}</td>
                                     <td>{{ $appointment->end_time }}</td>
                                     <td>{{ $appointment->status }}</td>
+                                    <td>{{ $appointment->admin ? $appointment->admin->user->name : '-' }}</td>
                                     <td>
                                         <a href="{{ route('appointments.show', $appointment->id) }}" class="btn btn-sm btn-primary">View</a>
                                         <a href="{{ route('appointments.edit', $appointment->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -42,10 +49,9 @@
                             @endforeach
                         </tbody>
                     </table>
-         
         </div>
     </div>
 </div>
-
-
 @endsection
+
+

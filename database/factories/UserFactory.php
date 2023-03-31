@@ -31,8 +31,7 @@ class UserFactory extends Factory
             'phone_number' => $this->faker->phoneNumber(),
             'city_id' => City::factory(),
             'last_login' => $this->faker->dateTime(),
-            'role_id'=> mt_rand(1,3),
-            'image' => $this->faker->imageUrl(),
+            'image' => 'user.png',
             'join_date' => $this->faker->dateTime(),
             'is_active' => $this->faker->boolean(),
             

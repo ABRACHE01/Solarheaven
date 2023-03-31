@@ -38,7 +38,7 @@ body {
     margin-bottom: 20px;
     min-height: 45px;
     font-size: 13px;
-    line-height: 15;
+    line-height: 11px;
     font-weight: normal; }
     .login-card .form-control::-webkit-input-placeholder {
       color: #919aa3; }

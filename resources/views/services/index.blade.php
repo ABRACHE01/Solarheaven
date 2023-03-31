@@ -15,6 +15,7 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Price</th>
+                            <th>Admin</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
@@ -26,6 +27,7 @@
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->description }}</td>
                                 <td>{{ $service->price }}</td>
+                                <td>{{ $service->admin->user->name }}</td>
                                 <td>
                                     @foreach($service->images as $image)
                                     <img src="{{ asset('images/serviceImages/' . $image->url) }}" alt="" width="100">

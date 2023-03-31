@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class LoginController extends Controller
 {
@@ -37,4 +41,25 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     if (Auth::check()) {
+    //         $user = Auth::user();
+    //         $user->is_active = true; // set is_active to 1 when the user logs in
+    //         $user->save();
+    //     }
+    // }
+    
+    // protected function loggedOut(Request $request)
+    // {
+    //     if (Auth::check()) {
+    //         $user = Auth::user();
+    //         $user->is_active = false; // set is_active to 0 when the user logs out
+    //         $user->save();
+    //     }
+    // }
+
+
 }

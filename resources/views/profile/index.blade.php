@@ -25,7 +25,7 @@
 
             <div>
               <div class="d-flex justify-content-center mb-4">
-               <img id="preview" src="{{ $user->image ? asset('images/'.$user->image): asset('staticpictures/user.png') }}" class="rounded-circle mt-5" width="170" height="auto"   alt="Profile Image">
+               <img id="preview" src="{{ $user->image ? asset('images/usersImages/'.$user->image): asset('staticpictures/user.png') }}" class="rounded-circle mt-5" width="170" height="auto"   alt="Profile Image">
               </div>
               <span class="font-weight-bold">{{$user->name}}</span><span class="text-black-50"> {{$user->email}} </span>
               <div class="d-flex justify-content-center">

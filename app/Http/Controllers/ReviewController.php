@@ -9,6 +9,10 @@ use App\Models\Appointment;
 class ReviewController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $reviews = Review::with('appointment')->get();

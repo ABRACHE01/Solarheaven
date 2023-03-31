@@ -5,12 +5,25 @@ use App\Models\Image;
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Models\Admin;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ServiceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:create-service')->only(['create', 'store']);
+        $this->middleware('can:edit-service')->only(['edit', 'update']);
+        $this->middleware('can:delete-service')->only(['destroy']);
+
+    }
     public function index()
     {
-        $services = Service::with('images','admin')->latest()->paginate(5);
+        $services = Service::with('images','admin.user')->latest()->paginate(10);
         return view('services.index', compact('services'));
     }
 
@@ -37,16 +50,14 @@ class ServiceController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            // 'admin_id' => auth()->user()->id,
-            'admin_id' => 1,
-            
+            'admin_id' => Admin::where('user_id', Auth::user()->id)->first()->id, 
         ]);
 
-     // Save the image URL 
-     $imageModel = new Image();
-     $imageModel->url = $image_name;
-     $imageModel->service_id = $service->id;
-     $imageModel->save();
+        // Save the image URL 
+        $imageModel = new Image();
+        $imageModel->url = $image_name;
+        $imageModel->service_id = $service->id;
+        $imageModel->save();
 
         return redirect()->route('services.index')->with('success', 'Service created successfully');
     }

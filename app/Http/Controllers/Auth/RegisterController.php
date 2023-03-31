@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\City;
+use App\Models\Client;
 
 class RegisterController extends Controller
 {
@@ -42,11 +43,20 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    // public function getCities()
-    // {
-    //     $cities = City::all();
-    //     return view('auth.register', compact('cities'));  
-    // }
+    public function getCities()
+    {
+        $cities = City::all();
+        return $cities;
+    }
+
+    public function showRegistrationForm()
+    {
+        $cities = $this->getCities();
+        return view('auth.register', compact('cities'));
+    }
+
+
+    
     /**
      * Get a validator for an incoming registration request.
      *
@@ -71,12 +81,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone_number' => $data['phone_number'],
-            'role_id' => 3,
-        ]);
+     
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+        'phone_number' => $data['phone_number'],
+        'city_id' => $data['city_id'],
+        'is_active' => true,
+        'image' => 'client.png',
+    ]);
+
+    $user->assignRole('client');
+
+    $client = new Client([
+       'user_id' => $user->id, 
+    ]);
+
+    $user->client()->save($client);
+
+
+    return $user;
+
     }
 }
