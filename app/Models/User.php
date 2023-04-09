@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Admin;
+use App\Models\Client;
+use App\Models\Notification;
 
 class User extends Authenticatable
 {
@@ -23,12 +26,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'role_id',
         'is_active',
         'last_login',
         'join_date',
         'image',
+        'password',
         'phone_number',
         'city_id', 
     ];
@@ -60,27 +62,22 @@ class User extends Authenticatable
 
     public function technician()
     {
-        return $this->hasOne(Technician::class);
+        return $this->belongsTo(Technician::class);
     }
 
     public function client()
     {
-        return $this->hasOne(Client::class);
+        return $this->belongsTo(Client::class);
     }
 
-    public function admin()
+     public function admin()
     {
-        return $this->hasOne(Client::class);
+        return $this->belongsTo(Admin::class);
     }
 
     public function notifications()
     {
         return $this->hasMany(Notification::class);
-    }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
     }
 
 

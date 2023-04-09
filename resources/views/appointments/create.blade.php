@@ -11,6 +11,7 @@
     @csrf
 
     <div class="row mb-3">
+
         <div class="col-md-4">
             <label for="client_id" class="form-label">Client</label>
             <select name="client_id" id="client_id" class="form-select">
@@ -20,7 +21,31 @@
             </select>
         </div>
 
+        @if(Route::currentRouteName() == 'appointments.service')
+        <div>
+            <label for="service_id" class="form-label">Service</label>
+            <select name="service_id" id="service_id" class="form-select">
+                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="technician_id" class="form-label">Technician</label>
+            <select name="technician_id" id="technician_id" class="form-select">
+
+                @if ($technicians->count() == 0)
+                    <option value="">No technicians available</option>
+                @endif
+                @foreach ($technicians as $technician)
+                    <option value="{{ $technician->id }}">{{ $technician->user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        @endif
+
         
+        @if(Route::currentRouteName() == 'appointments.technician')
+
         <div>
             <label for="service_id" class="form-label">Service</label>
             <select name="service_id" id="service_id" class="form-select">
@@ -33,11 +58,16 @@
         <div class="col-md-4">
             <label for="technician_id" class="form-label">Technician</label>
             <select name="technician_id" id="technician_id" class="form-select">
-                @foreach ($technicians as $technician)
-                    <option value="{{ $technician->id }}">{{ $technician->name }}</option>
-                @endforeach
+
+                @if ($technician->count() == 0)
+                    <option value="">No technicians available</option>
+                @endif
+                    <option value="{{ $technician->id }}">{{ $technician->user->name }}</option>
             </select>
         </div>
+
+        @endif
+
     </div>
 
     <div class="row mb-3">

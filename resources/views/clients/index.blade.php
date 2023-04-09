@@ -1,157 +1,251 @@
 
-@extends('layouts.app')
 
-<style>
-  @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
-  body {
-    background: #f9f9f9;
-    font-family: "Roboto", sans-serif;
-  }
 
-  .main-content {
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
+@extends('layouts.sec')
 
-  .table {
-    border-spacing: 0 15px;
-    border-collapse: separate;
-  }
-  .table thead tr th,
-  .table thead tr td,
-  .table tbody tr th,
-  .table tbody tr td {
-    vertical-align: middle;
-    border: none;
-  }
-  .table thead tr th:nth-last-child(1),
-  .table thead tr td:nth-last-child(1),
-  .table tbody tr th:nth-last-child(1),
-  .table tbody tr td:nth-last-child(1) {
-    text-align: center;
-  }
-  .table tbody tr {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-  }
-  .table tbody tr td {
-    background: #fff;
-  }
-  .table tbody tr td:nth-child(1) {
-    border-radius: 5px 0 0 5px;
-  }
-  .table tbody tr td:nth-last-child(1) {
-    border-radius: 0 5px 5px 0;
-  }
-
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  .user-info__img img {
-    margin-right: 15px;
-    height: 55px;
-    width: 55px;
-    border-radius: 45px;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .active-circle {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-    margin-right: 5px;
-    display: inline-block;
-  }
-</style>
 
 @section('content')
 
+@include('components.authnavbar')
 
-                <section class="main-content">
-                  <div class="container">
-                    <h1>SolarHaven Clients</h1>
-                    <br>
-                    <br>
-              
-                    <table class="table">
-                      @php
-                      $i=0;
-                  @endphp
-                      <thead>
-                        <tr>
-                      <th>#</th>
-                      <th>Client</th>
-                      <th>Status</th>
-                      <th>Phone</th>
-                      <th>City</th>
-                      <th>sence</th>
-                      <th>view</th>
-                      <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($users as $user)
-                        <tr>
-                          <td class=" text-muted fw-bold m-2">{{ $i++ }}</td>
-                          <td>
-                            <div class="user-info">
-                              <div class="user-info__img">
-                                <img src="{{ $user->image ? asset('images/usersImages/'.$user->image): asset('images/staticpictures/client.png') }}"   style="width: 45px; height: 45px"
-                                class="rounded-circle" alt="User Img">
-                              </div>
-                              <div class="user-info__basic">
-                                <p class="fw-bold mb-1">{{ $user->name }}</p>
-                                <p class="text-muted mb-0">{{ $user->email }}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span class="active-circle bg-danger"></span> {{ $user->is_active ? 'Active' : 'Not Active' }}
-                          </td>
-                         
-                          <td>{{ $user->phone_number}}</td>
-                          @if ($user && $user->city)
-                          <td><span class="badge badge-success rounded-pill d-inline">{{ $user->city->name }}</span></td>
-                          @else
-                          <td><span class="badge badge-danger rounded-pill d-inline">No city found</span></td>
-                          @endif
-                          <td class="">{{ $user->created_at->diffForhumans() }}</td>
-                          
-                          {{-- @if ($user &&  $user->client)
-                          <td >{{ $user->client->address }}</td>
-                          @else
-                          <td><span class="badge badge-danger rounded-pill d-inline">Not found</span></td>
-                          @endif --}}
+<!-- Table Section -->
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <!-- Card -->
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
+          <!-- Header -->
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
+            <div>
+              <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Clients
+              </h2>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                See clients, Delete and more.
+              </p>
+            </div>
 
-                          <td>
-                            <button class="btn btn-primary btn-sm btn-rounded"><a href="{{ route('clients.show', $user->id) }}" class="text-decoration-none text-white"><i class="fa fa-eye "></i></a></button>
-                          </td>
-                          <td>
-                            <div class="dropdown open">
-                              <a href="#!" class="px-2" id="triggerId1" data-toggle="dropdown" aria-haspopup="true"
-                                  aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v"></i>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                <form action="{{ route('clients.destroy', $user->id) }}" method="POST" >
-                                  {{ csrf_field() }}
-                                  {{ method_field('DELETE') }}
-                                  <button type="submit" class=" dropdown-item  text-danger"><i class="fa fa-trash mr-1"></i> Delete</button>                     
-                              </form>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                      <h3 class=" card-footer p-2"> Clients:{{$i}}</h3>
-                    </table>
+            <div>
+              <div class="inline-flex gap-x-2">
+                <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800" href="#">
+                  View all
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- End Header -->
+
+          <!-- Table -->
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-slate-800">
+              <tr>
+                <th scope="col" class="pl-6 py-3 text-left">
+                  <label for="hs-at-with-checkboxes-main" class="flex">
+                    <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-main">
+                    <span class="sr-only">Checkbox</span>
+                  </label>
+                </th>
+                <th scope="col" class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Name
+                    </span>
                   </div>
-                </section>
+                </th>
+                
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      address
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Status
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Special client
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Phone
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      City
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                     Created
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-right"></th>
+
+
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              @php
+              $i=0;
+             @endphp
+
+              @foreach($users as $client)
+              @php
+              $i++;
+             @endphp
+              <tr>
+                <td class="h-px w-px whitespace-nowrap">
+                  <div class="pl-6 py-3">
+                    <label for="hs-at-with-checkboxes-1" class="flex">
+                      <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-1">
+                      <span class="sr-only">Checkbox</span>
+                    </label>
+                  </div>
+                </td>
+              
+                <td class="h-px w-px whitespace-nowrap">
+                  <div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
+                    <a  <a href="{{ route('clients.show', $client->id) }}" class="flex items-center gap-x-3">
+                      <img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full"  src="{{ asset('images/usersImages/' . $client->user->image ) }}" alt="Image Description">
+                      <div class="grow">
+                        <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{$client->user->name}}</span>
+                        <span class="block text-sm text-gray-500">{{$client->user->email}}</span>
+                      </div>
+                    </a>
+                  </div>
+                </td>
+
+                <td class="h-px w-40 whitespace-nowrap">
+                  <div class="text-sm text-gray-500">
+                    <span>{{ $client->address ? $client->address : 'No address'  }}</span>
+                  </div>
+                </td>
+
+                <td class=" h-px w-px whitespace-nowrap">
+
+                  @if ($client->user->is_active == 1)
+                  <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                    <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                         <span class="relative">Active</span>  
+                  </span>  
+                  @else
+                  <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                    <span aria-hidden class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+									<span class="relative">Inactive</span>
+									</span>
+                  @endif                    
+								</td>
+
+                <td class="h-px w-px whitespace-nowrap">
+                  <div class="px-6 py-3 text-sm text-gray-500 ">
+                    <span>{{ $client->user->is_special_client ? 'Yes' : 'No' }}</span>
+                  </div>
+                </td>
 
                 
+                <td class="h-px w-px whitespace-nowrap">
+                  <div class="px-6 py-3 text-sm text-gray-500 ">
+                    <span>{{ $client->user->phone_number}}</span>
+                  </div>
+                </td>
+
+      
+                <td class="h-px w-px whitespace-nowrap">
+                  @if ($client && $client->user && $client->user->city)
+                  <div class="px-6 py-3">
+                    <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                      <i class="fa fa-location"></i>{{ $client->user->city->name }}
+                    </span>
+                  </div>
+                  @endif
+              </td>
+
+                <td class="h-px w-px whitespace-nowrap">
+                  <div class="px-6 py-3">
+                    <span class="text-sm text-gray-500">{{$client->created_at->diffForhumans() }}</span>
+                  </div>
+                </td>
+                <td class="h-px w-px whitespace-nowrap py-3 px-6 text-center ">
+                    <div class="flex item-center justify-center">
+                        <div class="w-4 mr-2 transform hover:scale-110">
+                          <form action="{{ route('clients.destroy', $client->id) }}" method="POST" >
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button type="submit" class=" w-4 mr-2 transform hover:text-purple-500 hover:scale-110"><i class=" fa fa-trash text-gray-500"></i></button>
+                        </form>
+                        </div>
+                    </div>
+                </td>
+              </tr>
+            @endforeach
+
+            </tbody>
+          </table>
+          <!-- End Table -->
+
+          <!-- Footer -->
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                <span class="font-semibold text-gray-800 dark:text-gray-200">{{ $i }}</span> results
+              </p>
+            </div>
+
+            <div>
+              <div class="inline-flex gap-x-2">
+                <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                  <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                  </svg>
+                  Prev
+                </button>
                 
-                
+                <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                  Next
+                  <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- End Footer -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Card -->
+</div>
+<!-- End Table Section -->
+
+
+
+
+
+@include('components.footer')
 @endsection

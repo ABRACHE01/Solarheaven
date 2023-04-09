@@ -10,6 +10,7 @@ use App\Http\Controllers\AppointementController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use  App\Http\Controllers\AppointmentHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
+})->name('welcome');
 
 
 Route::Resource('cities', CityController::class);
@@ -35,9 +35,9 @@ Route::resource('appointments', AppointementController::class);
 
 Route::resource('admins', AdminController::class);
 
+Route::resource('appointment-histories', AppointmentHistoryController::class);
 
-
-Route::get('cities/{city}/sort', [CityController::class, 'sort_by_city']);
+Route::get('cities/{city}/sort', [CityController::class, 'sort_by_city'])->name('cities.sort');
 
 Route::Resource('services', ServiceController::class);
 
@@ -45,10 +45,26 @@ Route::Resource('reviews', ReviewController::class);
 
 Route::resource('clients', ClientController::class);
 
+//reserve appointment by service
+Route::get('/appointments/service/{service}', [AppointementController::class, 'create'])->name('appointments.service');
+
+//reserve appointment by technician
+Route::get('/appointments/technician/{technician}', [AppointementController::class, 'reserveByTech'])->name('appointments.technician');
+
+
+//confirm appointment
+Route::put('appointments/{appointment}/confirm', [AppointementController::class, 'confirm'])->name('appointments.confirmation');
+
+
+
+
+
+
 //profile routes 
 Route::get('profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
 Route::put('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('profile/delete/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 
 Auth::routes();
 

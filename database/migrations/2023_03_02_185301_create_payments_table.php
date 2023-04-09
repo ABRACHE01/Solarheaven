@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-             $table->id();
+            $table->id();
             $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade');
             $table->unsignedDecimal('amount', 8, 2);
             $table->unsignedDecimal('extra_charges', 8, 2)->nullable();

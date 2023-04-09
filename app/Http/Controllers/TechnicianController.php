@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Technician;
 use App\Models\User;
 use App\Models\City;
+use Illuminate\Foundation\Auth\User as AuthUser;
 
 class TechnicianController extends Controller
 {
@@ -20,9 +21,9 @@ class TechnicianController extends Controller
     
     public function index()
     {
-
+        $cities = City::all();
         $technicians = Technician::with('user')->latest()->paginate(10);
-        return view('technicians.index', compact('technicians'));
+        return view('technicians.index', compact('technicians', 'cities'));
 
     }
 
@@ -80,6 +81,8 @@ class TechnicianController extends Controller
             'user_id' => $user->id,
             'years_of_experience' => $request->years_of_experience,
         ]);
+
+        user::where('id', $user->id)->update(['technician_id' => $technician->id]);
 
         return redirect()->route('tech.index')->with('success', 'Technician created successfully');
         

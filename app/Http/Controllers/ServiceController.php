@@ -19,7 +19,6 @@ class ServiceController extends Controller
         $this->middleware('can:create-service')->only(['create', 'store']);
         $this->middleware('can:edit-service')->only(['edit', 'update']);
         $this->middleware('can:delete-service')->only(['destroy']);
-
     }
     public function index()
     {

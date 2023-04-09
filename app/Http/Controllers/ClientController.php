@@ -23,16 +23,14 @@ class ClientController extends Controller
 
     public function show(Request $request, $id)
     {
-        $user= user::with('client')->find($id);
-        return view('clients.show', compact('user'));
+        $client= client::with('user')->find($id);
+        return view('clients.show', compact('client'));
     }
-
-
-
+    
     public function destroy(Request $request, $id)
     {
-        $user = user::find($id);
-        $user->delete();
+        $client = Client::find($id);
+        $client->delete();
        
         return redirect()->route('clients.index');
     }

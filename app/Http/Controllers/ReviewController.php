@@ -27,8 +27,9 @@ class ReviewController extends Controller
     }
 
     public function create()
-    {
-        return view('reviews.create');
+    {;
+        $appointments = Appointment::all();
+        return view('reviews.create',compact('appointments'));
     }
 
     public function store(Request $request)

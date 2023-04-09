@@ -54,12 +54,13 @@ class CityController extends Controller
         }
 
         $city_id = $city->id;
-        // $technicians = User::with('technician')->where('city_id', $city_id)->where('role_id', 2)->get();
-        $technicians = User::with('technician')->where('city_id', $city_id)->get();
-
        
+        //filter technicians by city by spatie roles
+
+        $technicians = User::role('technician')->where('city_id', $city_id)->get();
+
         return view('cities.sort_by_city', compact('technicians'))->with('city', $city);
-    }
+   }
 
     
 }

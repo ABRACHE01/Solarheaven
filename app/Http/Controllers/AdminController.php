@@ -69,6 +69,7 @@ class AdminController extends Controller
         ]);
 
         $user->assignRole('admin');
+        $user->save();
 
         $admin = Admin::create([
             'user_id' => $user->id,
@@ -81,9 +82,6 @@ class AdminController extends Controller
         return redirect()->route('admins.index')->with('success', 'Admin created successfully');
 
     }
-
-    
-
 
     public function destroy(Request $request, $id)
     {
