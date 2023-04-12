@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Appointment;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Technician;
@@ -30,7 +32,10 @@ class TechnicianController extends Controller
     public function show(Request $request, $id)
     {
         $technician = Technician::with('user')->find($id);
-        return view('technicians.show', compact('technician'));
+     // this specific technician's appointments
+        $appointments = Appointment::where('technician_id', $id)->get();
+       
+        return view('technicians.show', compact('technician', 'appointments'));
     }
 
     public function create()
@@ -93,45 +98,6 @@ class TechnicianController extends Controller
     {
         $technician = Technician::with('user')->find($id);
         return view('technicians.edit', compact('technician'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required',
-        // ]);
-        
-        // if($request->hasfile('image'))
-        // {
-        // $image = $request->file('image');
-        // $image_name = time().'.'.$image->getClientOriginalExtension();
-        // $destinationPath = public_path('images/usersImages');
-        // $image->move($destinationPath, $image_name);
-        // }
-        // else
-        // {
-        //     $image_name = 'default.jpg';
-        // }
-
-        // new User([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'image' => $image_name,
-        //     'role_id' => 2,
-        // ]);
-
-        // $technician = Technician::find($id);
-        // $technician->qualification = $request->qualification;
-        // $technician->years_of_experience = $request->years_of_experience;
-        // $technician->bio = $request->bio;
-        // $technician->save();
-
-
-        // return redirect()->route('tech.index')->with('success', 'Technician updated successfully');
-        
-   
     }
 
     public function destroy(Request $request, $id)

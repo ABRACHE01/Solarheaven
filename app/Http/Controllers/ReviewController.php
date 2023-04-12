@@ -27,7 +27,7 @@ class ReviewController extends Controller
     }
 
     public function create()
-    {;
+    {
         $appointments = Appointment::all();
         return view('reviews.create',compact('appointments'));
     }
@@ -40,7 +40,7 @@ class ReviewController extends Controller
             'rating' => 'required',
         ]);
         $review = Review::create($validatedData);
-        return redirect()->route('reviews.show', ['review' => $review->id])
+        return redirect()->route('reviews.index')
                          ->with('message', 'Review created successfully');
     }
 

@@ -96,11 +96,11 @@ class RegisterController extends Controller
 
 
     $client = new Client([
-       'user_id' => $user->id, 
-       'address' => $data['address'],
+        'user_id' => $user->id, 
+        'address' => $data['address'],
     ]);
-    
-    $user->client()->save($client);
+
+    $client->save();
     User::where('id', $user->id)->update(['client_id' => $client->id]);
     return $user;
 

@@ -1,24 +1,4 @@
-{{-- @extends('layouts.app')
-@section('content')
 
-  <div class="card mx-auto m-5 " style="width: 50%;" >
-
-  <a href="{{ route('services.index') }}" class="btn btn-info">back</a>
-  <h2 class="card-header text-center">service PAGE</h2>
-  <div class="card-body">
-
-        <div class="card-body">
-        <h5 class="card-title">Name : {{ $service->name }}</h5>
-        @foreach($service->images as $image)
-        <img src="{{ asset('images/serviceImages/' . $image->url) }}" alt="" width="100">
-        @endforeach
-        <p class="card-text">price : {{ $service->price }}</p>
-        <p class="card-text">coption : {{ $service->description }}</p>
-
-  </div>
-  </div>
- </div>
-@endsection --}}
 
 
 @extends('layouts.sec')
@@ -66,14 +46,16 @@
             </div>
           </dl>
         </div>
-        @foreach($service->images as $image)
+   
         <div class="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
+          @forEach($service->images as $image)
           <img src="{{ asset('images/serviceImages/' . $image->url) }}"alt="Walnut card tray with white powder coated steel divider and 3 punchout holes." class="rounded-lg bg-gray-100">
           <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg" alt="Top down view of walnut card tray with embedded magnets and card groove." class="rounded-lg bg-gray-100">
           <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-03.jpg" alt="Side of walnut card tray with card groove and recessed card area." class="rounded-lg bg-gray-100">
           <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg" alt="Walnut card tray filled with cards and card angled in dedicated groove." class="rounded-lg bg-gray-100">
+          @endforeach
         </div>
-            @endforeach
+
       </div>
     </div>
 </section>
@@ -82,3 +64,5 @@
 
 
 @endsection
+
+

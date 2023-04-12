@@ -10,6 +10,7 @@ use App\Http\Controllers\AppointementController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LandingController;
 use  App\Http\Controllers\AppointmentHistoryController;
 
 /*
@@ -23,9 +24,7 @@ use  App\Http\Controllers\AppointmentHistoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [LandingController::class,'index'])->name('welcome');
 
 
 Route::Resource('cities', CityController::class);
@@ -53,9 +52,10 @@ Route::get('/appointments/technician/{technician}', [AppointementController::cla
 
 
 //confirm appointment
-Route::put('appointments/{appointment}/confirm', [AppointementController::class, 'confirm'])->name('appointments.confirmation');
+// Route::put('appointments/{appointment}/confirm', [AppointementController::class, 'confirm'])->name('appointments.confirmation');
 
 
+// Route::put('/appointments/confirm', [AppointementController::class, 'confirm'])->name('appointments.confirmation');
 
 
 

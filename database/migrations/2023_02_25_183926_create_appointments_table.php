@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade'); 
             $table->foreignId('technician_id')->constrained('technicians')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->date('start_time');
+            $table->dateTime('end_time')->nullable();
             $table->enum('status', ['requested', 'confirmed','completed', 'cancelled'])->default('requested');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');

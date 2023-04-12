@@ -1,91 +1,104 @@
-@extends('layouts.app')
+
+
+
+
+
+
+@extends('layouts.sec')
 
 @section('content')
 
-@extends('layouts.app')
+@include('components.authnavbar')
 
-@section('content')
-<div class="container">
-    <h1>Create Appointment</h1>
+<div class="flex items-center justify-center p-12">
+    <!-- Author: FormBold Team -->
+    <div class="mx-auto w-full max-w-[550px] bg-white">
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    <a href="{{ route('appointments.index') }}" class="btn btn-primary">Back to Appointments</a>
+    <form action="{{ route('appointments.update', $appointment->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+         
+            @if(Auth:: user()->hasRole('admin'))
 
-    <hr>
-<form method="POST" action="{{ route('appointments.store') }}">
-    @csrf
+            {{--  ADMIN CAN EDIT THE APPOINTMENT  --}}
+            <div class="mb-5">
+                <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
+                    Technician
+                </label>
+                <select name="technician_id" id="technician_id" placeholder="Full Name"
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
+                    @foreach ($technicians as $technician)
+                        <option value="{{ $technician->id }}" {{ $appointment->technician_id == $technician->id ? 'selected' : '' }}>{{ $technician->user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label for="client_id" class="form-label">Client</label>
-            <select name="client_id" id="client_id" class="form-select">
-                @foreach ($clients as $client)
-                    <option value="{{ $client->id }}">{{ $client->user->name }}</option>
-                @endforeach
+
+            <div class="mb-5">
+                <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
+                    Status
+                </label>
+                <select name="status" id="status" placeholder="Full Name"
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="requested" {{ $appointment->status == 'requested' ? 'selected' : '' }}>Requested</option>
+                    <option value="confirmed" {{ $appointment->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                    <option value="cancelled" {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+            </div>
+
+            @endif
+
+            
+            @if(Auth:: user()->hasRole('technician'))
+
+            {{-- COMPLETED STATUS FOR THE TECHNICIAN  --}}
+
+        <div class="mb-5">
+            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
+                Status
+            </label>    
+            <select name="status" id="status" placeholder="Full Name"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
+                <option value="cancelled" {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
             </select>
         </div>
 
-        
-        <div>
-            <label for="service_id" class="form-label">Service</label>
-            <select name="service_id" id="service_id" class="form-select">
-                @foreach ($services as $service)
-                    <option value="{{ $service->id }}">{{ $service->name }}</option>
-                @endforeach
+            @endif
+
+            @if(Auth:: user()->hasRole('client'))
+
+            {{-- CANCLED STATUS FOR THE CLIENT  --}}
+
+        <div class="mb-5">
+            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
+                Status
+            </label>
+            <select name="status" id="status" placeholder="Full Name"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
+                <option value="cancelled" {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
             </select>
         </div>
 
-        <div class="col-md-4">
-            <label for="technician_id" class="form-label">Technician</label>
-            <select name="technician_id" id="technician_id" class="form-select">
-                @foreach ($technicians as $technician)
-                    <option value="{{ $technician->id }}">{{ $technician->user->name }}</option>
-                @endforeach
-            </select>
-        </div>
+            @endif
+
+            <div>
+                <button
+                type="submit"
+                    class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label for="start_time" class="form-label">Start Time</label>
-            <input type="datetime-local" name="start_time" id="start_time" class="form-control" value="">
-        </div>
-        <div class="col-md-6">
-            <label for="end_time" class="form-label">End Time</label>
-            <input type="datetime-local" name="end_time" id="end_time" class="form-control">
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label for="city_id" class="form-label">City</label>
-            <select name="city_id" id="city_id" class="form-select">
-                @foreach ($cities as $city)
-                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-4">
-            <label for="status" class="form-label">Status</label>
-            <select name="status" id="status" class="form-select">
-                <option value="requested">Requested</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-        </div>
-        
-    </div>
-
-
-    <button type="submit" class="btn btn-primary">Create Appointment</button>
-</form>
+@include('components.footer')
 @endsection
-
-
-
-
-
-
-
 
 

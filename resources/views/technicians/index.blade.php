@@ -26,13 +26,18 @@
       </div>
     
       <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-        <h3 class="text-xl font-medium text-white">Skinny Jeans Blue</h3>
-    
+
+        <h3 class="text-xl font-medium text-white">Add new technician</h3>
         <p class="mt-1.5 max-w-[40ch] text-xs text-white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
           dicta impedit aperiam ipsum!
         </p>
-    
+        <span
+          class="inline-block px-5 py-3 mt-3 text-xs font-medium tracking-wide text-white uppercase bg-green-600"
+        ><i class="fa fa-plus"></i> 
+          Technician
+        </span>
+      </div>
       </div>
     </a>
   </section>
@@ -44,8 +49,9 @@
         <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray-900">
           Check our awesome Technicians
       </h1>
-          <form>
-            <div class="flex m-5">
+   
+           
+            <div class="flex m-5 ">
                 <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
                 <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button"> all cities <svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
                 <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -60,14 +66,18 @@
                     </ul>
                 </div>
                 <div class="relative w-full">
-                    <input type="search" id="myInput" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-green-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-green-500" placeholder="Search Mockups, Logos, Design Templates..." required>
-                    <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-green-700 rounded-r-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    <input  type="text" id="search-input"  class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-green-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-green-500" placeholder="Search Mockups, Logos, Design Templates..." required>
+                    <button  class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-green-700 rounded-r-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         <span class="sr-only">Search</span>
                     </button>
                 </div>
+
+                
             </div>
-        </form>
+
+            
+    
         <h2 class="text-base font-bold text-green-600">
           We have the best equipment in the market
       </h2>
@@ -108,7 +118,17 @@
         </span>
         @endforeach
 </section> 
-    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#search-input').on('keyup', function() {
+      var value = $(this).val().toLowerCase();
+      $('#myTechnicians span').filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
 @include('components.footer')
 </body>
 

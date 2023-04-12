@@ -25,12 +25,17 @@
             </div>
 
             <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-                <h3 class="text-xl font-medium text-white">Skinny Jeans Blue</h3>
 
-                <p class="mt-1.5 max-w-[40ch] text-xs text-white">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
-                    dicta impedit aperiam ipsum!
-                </p>
+              <h3 class="text-xl font-medium text-white">Add new service</h3>
+              <p class="mt-1.5 max-w-[40ch] text-xs text-white">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
+                dicta impedit aperiam ipsum!
+              </p>
+              <span
+                class="inline-block px-5 py-3 mt-3 text-xs font-medium tracking-wide text-white uppercase bg-green-600"
+              ><i class="fa fa-plus"></i> 
+                Service
+              </span>
             </div>
         </a>
     </section>
@@ -58,11 +63,7 @@
                       stroke="currentColor"
                       class="h-4 w-4"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                      />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                     </svg>
                   </button>
                   <!-- Dropdown menu -->
@@ -91,22 +92,25 @@
                         />
                       
                         <div class="relative border border-gray-100 bg-white p-6">
-                          <a href="{{ route('appointments.service', $service->id) }}"
+                          <a  href="{{ route('services.show', $service->id) }}"
                             class="whitespace-nowrap bg-green-100 px-3 py-1.5 text-xs font-medium"
                           >
-                            book now
+                            Show service details
                         </a>
                       
                           <h3 class="mt-4 text-lg font-medium text-gray">{{ $service->name }}</h3>
-                      
-                          <p class="mt-1.5 text-sm text-gray-700">{{ $service->description }}</p>
+                          <p class="mt-2 text-sm text-gray-500">{{ $service->description }}</p>
+                          
+                          <div class="m-4 flex items-center">
+                            
+                            <p class="text-sm font-medium text-gray-900">{{ $service->price }}$</p>
 
-                          <p class="mt-1.5 text-sm text-gray-700">{{ $service->price }} dh</p>
+                          </div>
 
                             <button
                               class="block w-full rounded bg-green-100 p-4 text-sm font-medium transition hover:scale-105"
                             >
-                            <a href="{{ route('services.show', $service->id) }}" >Show service deatails</a>
+                            <a href="{{ route('appointments.service', $service->id) }}" >Book service</a>
                             </button>
                         </div>
                 </div>

@@ -1,31 +1,50 @@
-@extends('layouts.app')
+
+@extends('layouts.sec')
 @section('content')
 
-  <div class="card mx-auto m-5 " style="width: 50%;" >
+@include('components.authnavbar')
 
-  <a href="{{ route('clients.index') }}" class="btn btn-info text-white">back</a>
-  <h2 class="card-header text-center">Client Card</h2>
-  <div class="card-body">
+ 
+<div class="m-10 sm:w-[40%]  mx-auto">
 
-        <div class="card-body row ">
-          <div class="col-5">
-            <img src="{{ asset('images/usersImages/' . $client->user->image ) }}" alt="" style="width: 80%; " class="rounded-circle" />
+  <div class="rounded-lg border bg-white px-4 pt-8 pb-10 shadow-lg">
+    <div class="relative mx-auto w-36 rounded-full">
+      <span class="absolute right-0 m-3 h-3 w-3 rounded-full bg-green-500 ring-2 ring-green-300 ring-offset-2"></span>
+      <img class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28" src="{{ asset('images/usersImages/' . $client->user->image ) }}" alt="" style="width: 80%; " class="rounded-circle" />
+    </div>
+    <h1 class="my-1 text-center text-xl font-bold leading-8 text-gray-900">{{ $client->user->name }}</h1>
+    <h3 class="font-lg text-semibold text-center leading-6 text-gray-600">Client</h3>
+    <p class="text-center text-sm leading-6 text-gray-500 hover:text-gray-600">{{ $client->user->phone_number }}</p>
+    <ul class="mt-3 divide-y rounded bg-gray-100 py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow">
+      <li class="flex items-center py-3 text-sm">
+        <span>City</span>
+        <span class="ml-auto"><span class="rounded-full bg-green-200 py-1 px-2 text-xs font-medium text-green-700">{{ $client->user->city->name }}</span>
+      </li>
+     
+      <li class="flex items-center py-3 text-sm">
+        <span>Email address</span>
+        
+        <span class="ml-auto">{{ $client->user->email }}</span>
+      </li>
+      <li class="flex items-center py-3 text-sm">
+        <span>Address</span>
+        <span class="ml-auto">{{ $client->address ? $client->address : 'No address' }}</span>
+      </li>
 
-          </div>
-            <div class="col-7 ">
-              <p class="fw-bold mb-1 h3">{{ $client->user->name }}</p>
-              <p class="text-muted mb-4 h5">{{ $client->user->email }}</p>
-              <p class="fw-bold mb-2 h5">Phone number : <span class="text-muted">{{ $client->user->phone_number}}</span></p>
-              <p class="fw-bold mb-2 h5">City :<span class="text-muted"> {{ $client->user->city->name }}</span> </p>   
-          
-              @if ($client  && $client->address)
-              <p class="fw-bold mb-2 h5">Address :<span class="text-muted"> {{ $client->address }}</span> </p>
-              @else
-              <p><span class="badge badge-danger rounded-pill d-inline">No city found</span></p>
-              @endif
-          
-            </div>
-        </div>
+      <li class="flex items-center py-3 text-sm">
+        <span>Appointements count</span>
+        <span class="ml-auto">{{ $client->appointments->count() }} Appointment </span>
+      </li>
+      <li class="flex items-center py-3 text-sm">
+        <span>Joined On</span>
+        <span class="ml-auto">{{ $client->created_at->format('d/m/Y') }}</span>
+      </li>
+     
+    </ul>
   </div>
 </div>
+
+@include('components.footer')
+
+ 
 @endsection
