@@ -12,37 +12,68 @@ Book a Service now </h4>
 <div class="flex items-center justify-center p-12">
     <!-- Author: FormBold Team -->
 
-    {{-- errore --}}
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
 
     {{-- success --}}
-    <div class="mx-auto w-full max-w-[550px] bg-white">
+    
+
+<div class="mx-auto w-full max-w-[550px] bg-white">
+            {{-- errore --}}
+@if ($errors->any())
+    <div class="alert alert-danger">
+    </div>
+    <div class="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-24 max-w-7xl">
+        <div class="p-6 border-l-4 border-red-500 -6 rounded-r-xl bg-red-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <div class="text-sm text-red-600">
+                <p>
+                    @foreach ($errors->all() as $error)
+                    {{ $error }}
+                    @endforeach
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+@endif
+
+@if (session('error'))
+
+    <div class="alert alert-danger">
+    </div>
+    <div class="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-24 max-w-7xl">
+        <div class="p-6 border-l-4 border-red-500 -6 rounded-r-xl bg-red-50">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <div class="text-sm text-red-600">
+                <p>
+                  {{ session('error') }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+@endif
         <form method="POST" action="{{ route('appointments.store') }}">
+
             @csrf
    
             <div class="mb-5">
-                <label for="phone" class="mb-3 block text-base font-medium text-[#07074D]">
-                   Client name
-                </label>
-                <select name="client_id" id="client_id" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                    @foreach ($clients as $client)
-                        <option value="{{ $client->id }}">{{ $client->user->name }}</option>
-                    @endforeach
-                </select>
+                <input  name="client_id" id="client_id"  value="{{ Auth::user()->client->id}}" placeholder="{{ Auth::user()->client->user->name}}" type="hidden"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+
             </div>
             
         @if(Route::currentRouteName() == 'appointments.service')
@@ -109,15 +140,7 @@ Book a Service now </h4>
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
                 </div>
-                {{-- <div class="w-full px-3 sm:w-1/2">
-                    <div class="mb-5">
-                        <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
-                           End Date
-                        </label>
-                        <input type="datetime-local" name="end_time" id="end_time"
-                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                    </div>
-                </div> --}}
+           
             </div>
 
             <div class="mb-5 pt-3">

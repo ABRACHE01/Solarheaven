@@ -102,8 +102,10 @@
                     </span>
                   </div>
                 </th>
-
+                
+                @if(Auth::user()->hasRole('admin'))
                 <th scope="col" class="px-6 py-3 text-right"></th>
+                @endif
 
 
               </tr>
@@ -190,6 +192,7 @@
                     <span class="text-sm text-gray-500">{{$client->created_at->diffForhumans() }}</span>
                   </div>
                 </td>
+                @if (Auth::user()->hasRole('admin'))
                 <td class="h-px w-px whitespace-nowrap py-3 px-6 text-center ">
                     <div class="flex item-center justify-center">
                         <div class="w-4 mr-2 transform hover:scale-110">
@@ -201,6 +204,7 @@
                         </div>
                     </div>
                 </td>
+                @endif
               </tr>
             @endforeach
 

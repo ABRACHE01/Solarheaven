@@ -21,6 +21,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'create-technician']);
         Permission::create(['name' => 'delete-technician']);
 
+        Permission::create(['name' => 'all-admins']);
+        Permission::create(['name' => 'create-admin']);
+        Permission::create(['name' => 'show-admin']);
+        Permission::create(['name' => 'delete-admin']);
+
+
 
         Permission::create(['name' => 'create-service']);
         Permission::create(['name' => 'update-service']);
@@ -67,18 +73,24 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->givePermissionTo('show-appointment');
         $adminRole->givePermissionTo('update-appointment');
         $adminRole->givePermissionTo('delete-appointment');
-        $adminRole->givePermissionTo('update-review');
         $adminRole->givePermissionTo('delete-review');
         $adminRole->givePermissionTo('create-city');
         $adminRole->givePermissionTo('delete-city');
+
+        $adminRole->givePermissionTo('all-admins');
+        $adminRole->givePermissionTo('create-admin');
+        $adminRole->givePermissionTo('show-admin');
+        $adminRole->givePermissionTo('delete-admin');
 
         // Technician
         $technicianRole->givePermissionTo('all-clients');
         $technicianRole->givePermissionTo('show-client');
         $technicianRole->givePermissionTo('all-appointments');
         $technicianRole->givePermissionTo('show-appointment');
-     
+        $technicianRole->givePermissionTo('all-admins');
+        $technicianRole->givePermissionTo('show-admin');
 
+        
         // Client
         $clientrRole->givePermissionTo('all-appointments');
         $clientrRole->givePermissionTo('show-appointment');
@@ -88,6 +100,8 @@ class RolesAndPermissionsSeeder extends Seeder
         $clientrRole->givePermissionTo('create-review');
         $clientrRole->givePermissionTo('update-review');
         $clientrRole->givePermissionTo('delete-review');
+        $clientrRole->givePermissionTo('all-admins');
+        $clientrRole->givePermissionTo('show-admin');
 
 
 

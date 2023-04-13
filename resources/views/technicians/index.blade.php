@@ -10,7 +10,7 @@
 </header>
 <body>
   <section>
-  <a href="{{ route('tech.create') }}" class="group relative block">
+  <div class="group relative block">
       <div class="relative h-[350px] sm:h-[450px]">
         <img
           src="{{asset('img/tech2.jpg')}}"
@@ -32,14 +32,20 @@
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
           dicta impedit aperiam ipsum!
         </p>
-        <span
+
+        @if(Auth::user()->hasRole('admin'))
+
+        <a href="{{ route('tech.create') }}" 
           class="inline-block px-5 py-3 mt-3 text-xs font-medium tracking-wide text-white uppercase bg-green-600"
         ><i class="fa fa-plus"></i> 
           Technician
-        </span>
+      </a>
+      
+      @endif
+
       </div>
       </div>
-    </a>
+    </div>
   </section>
 
    <section class="relative pt-28 pb-36 bg-blueGray-100 overflow-hidden">
@@ -72,8 +78,6 @@
                         <span class="sr-only">Search</span>
                     </button>
                 </div>
-
-                
             </div>
 
             
@@ -87,15 +91,19 @@
         @foreach ($technicians as $technician)
         <span class=" relative bg-white font-semibold text-center rounded-3xl border shadow-lg p-10 max-w-xs">
             <!-- Dropdown toggle button -->
+
+            @if(Auth::user()->hasRole('admin'))
             <button id="dropdownDelayButton-{{ $technician->id }}" data-dropdown-toggle="dropdownDelay-{{ $technician->id }}"  class="absolute z-10 block float-right text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-green-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
               </svg>
           </button>
+         
         <!-- Dropdown menu -->
         <div class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" id="dropdownDelay-{{ $technician->id }}">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDelayButton-{{ $technician->id }}">
             <li>
+          
               <a href="{{ route('tech.show', $technician->id) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">show</a>
             </li>
             <li>
@@ -106,17 +114,28 @@
               </form>
               </li>    
         </div>
+         @endif
 
+        
           <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"   src="{{ asset('images/usersImages/' . $technician->user->image ) }}" alt="product designer">
+      
           <h1 class="text-lg text-gray-700">{{ $technician->user->name }}  </h1>
           <h3 class="text-sm text-gray-400 "> {{ $technician->user->email}} </h3>
           <h3 class="text-sm text-gray-400 "> {{ $technician->qualification}} </h3>
           <p class="text-xs text-gray-400 mt-4"> {{ $technician->years_of_experience }} years of experience </p>
+
+          @if(Auth::user()->hasRole('client'))
           <button class="bg-green-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"> 
             <a href="{{ route('appointments.technician', $technician->id) }}">Hire Me</a>
           </button>
+          @elseif(Auth::user()->hasRole('admin')||Auth::user()->hasRole('technician'))
+          <button class="bg-green-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"> 
+            <a href="{{ route('tech.show', $technician->id) }}">View Profile</a>
+          </button>
+          @endif
         </span>
         @endforeach
+        
 </section> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

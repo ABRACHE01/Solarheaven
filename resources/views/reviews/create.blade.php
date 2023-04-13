@@ -13,7 +13,6 @@
 </div>
 @endif
 
-
   <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
     <div class="py-3 sm:max-w-xl sm:mx-auto">
       <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
@@ -44,21 +43,15 @@
           <form action="{{ route('reviews.store') }}" method="POST">
               @csrf
               <div class="form-group">
-                <label for="appointment_id">Appointment:</label>
-                <select class="form-control" id="appointment_id" name="appointment_id">
-                  @foreach ($appointments as $appointment)
-                    <option value="{{ $appointment->id }}">{{ $appointment->id }}</option>
-                  @endforeach
-                </select>
+                <input type="hidden" name="product_id" value="{{ $appointment->id }}">
               </div>
             <select type="hidden" name="rating" id="rating"  value="{{ old('rating') }}" min="1" max="5" class="p-4 text-gray-500 rounded-xl resize-none">
-              <option value="1">1</option>
+              <option value="1">1</option> 
               <option value="2">2</option>
               <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
+              <option value="4">4</option> 
+              <option value="5">5</option> 
+            </select> 
           </div>
           <div class="w-3/4 flex flex-col">
             <textarea rows="3" name="comment" class="p-4 text-gray-500 rounded-xl resize-none">{{ old('comment') }}</textarea>
@@ -71,10 +64,10 @@
           <a href="#" class="text-gray-600">Maybe later</a>
         </div>
       </div>
-  
-   
+
     </div>
   </div>
+  
   @include('components.footer')
 
 

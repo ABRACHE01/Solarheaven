@@ -11,6 +11,8 @@
         <a id="hide-after-click" href="{{route('services.index')}}" class="mx-4 text-lg text-green-500 border-b-2 border-transparent hover:border-b-2 hover:border-green-300 transition duration-500">SERVICES</a>
         <a id="hide-after-click" href="{{route('tech.index')}}" class="mx-4 text-lg text-green-500 border-b-2 border-transparent hover:border-b-2 hover:border-green-300 transition duration-500">TEHNISIANS</a>
         <a id="hide-after-click" href="{{route('reviews.index')}}" class="mx-4 text-lg text-green-500 border-b-2 border-transparent hover:border-b-2 hover:border-green-300 transition duration-500">REVIEWS</a>
+
+        
         @if (Route::has('login'))
         @auth
         <a id="hide-after-click" href="{{ url('/home') }}" class="mx-4 text-lg text-green-500 border-b-2 border-transparent hover:border-b-2 hover:border-green-300 transition duration-500">HOME</a>

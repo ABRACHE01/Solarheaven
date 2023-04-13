@@ -57,6 +57,7 @@ class HomeController extends Controller
         $latestReviews = Review::latest()->take(3)->get();
         $latestPayments = Payment::latest()->take(3)->get();
         $latestUsers = User::latest()->take(3)->get();
+        $latestPayments = Payment::latest()->take(3)->get();
 
         
 
@@ -73,10 +74,22 @@ class HomeController extends Controller
         }
 
 
+        if(Auth::user()->hasRole('technician')){
+            $technicianAppointments = Appointment::with('reviews')->where('technician_id', Auth::user()->technician->id)->get();
+            $appointmentId = $technicianAppointments->first()->id ?? null;
+            $technicianReviews = $appointmentId ? Review::where('appointment_id', $appointmentId)->get() : null;
+        }else{
+            $technicianReviews = null;
+            $technicianAppointments = null;
+        }
+       
+
+
        
         return view('home', compact('techniciansCount', 'adminsCount',
          'citiesCount', 'clientsCount', 'appointmentsCount', 'servicesCount', 'reviewsCount', 
         'paymentsCount', 'usersCount', 'latestTechnicians', 'latestAdmins', 'latestCities', 'latestClients', 
-        'latestAppointments', 'latestServices', 'latestReviews', 'latestPayments', 'latestUsers', 'clientAppointments', 'clientReviews'));
+        'latestAppointments', 'latestServices', 'latestReviews', 'latestPayments', 'latestUsers',
+         'clientAppointments', 'clientReviews', 'technicianAppointments', 'technicianReviews', 'latestPayments'));
     }
 }

@@ -19,7 +19,8 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_id', 'technician_id','localisation', 'city_id' ,'start_time', 'end_time', 'status', 'admin_id', 'service_id'
+        'client_id', 'technician_id','localisation', 'city_id' ,
+        'start_time', 'end_time', 'status', 'admin_id', 'service_id','address'
     ];
     public function client()
     {

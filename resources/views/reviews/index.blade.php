@@ -11,7 +11,7 @@
 
 <body>
     <section>
-        <a href="{{route('reviews.create')}}" class="group relative block">
+        <div class="group relative block">
             <div class="relative h-[350px] sm:h-[450px]">
                 <img src=" {{  asset('img/review1.jpg') }}" alt=""
                     class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0" />
@@ -21,7 +21,7 @@
             </div>
 
             <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-                <h3 class="text-xl font-medium text-white">Skinny Jeans Blue</h3>
+                <h3 class="text-xl font-medium text-white">Clients reviews</h3>
 
                 <p class="mt-1.5 max-w-[40ch] text-xs text-white">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
@@ -29,7 +29,7 @@
                 </p>
   
             </div>
-        </a>
+        </div>
     </section>
 
     <section class="relative pt-24 pb-36 bg-blueGray-100  overflow-hidden">
@@ -48,6 +48,7 @@
             
                 <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20">
 
+                  @if (Auth::user()->role == 'admin')
           <!-- Dropdown toggle button -->
           <button id="dropdownDelayButton-{{ $review->id }}" data-dropdown-toggle="dropdownDelay-{{ $review->id }}"  class="absolute z-10 block float-right text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-green-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -71,6 +72,7 @@
               </form>
               </li>    
         </div>
+        @endif
 
                   <div class="flex justify-center items-center md:justify-end -mt-16">
                     <a href="{{route('clients.show', $review->appointment->client->id ) }}" class="w-20 h-20 object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  " src="{{ asset('images/usersImages/' . $review->appointment->client->user->image ) }}"></a>

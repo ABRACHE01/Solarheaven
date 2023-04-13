@@ -17,7 +17,7 @@
                         </h2>
     
                         <p class="font-medium text-blue-100 md:text-2xl">
-                            We are happy to serve you and help you with your solar needs.
+                            We are here to help you to grow your business and to help our clients to find the best technicians for their needs.
                         </p>
 
                         {{-- buttons to see ower technicians and services --}}

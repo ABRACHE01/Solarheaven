@@ -14,7 +14,7 @@ class Payment extends Model
         'appointment_id',
         'amount',
         'extra_charges',
-        'description',
+        'note',
         'method',
         'status',
         'paid_at',

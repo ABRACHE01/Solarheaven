@@ -42,7 +42,9 @@
       <div id="myTechnicians" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 
+
 @if(Auth:: user()->hasRole('technician')) 
+
 @foreach($techappointments as $appointement)
 
   <div id="appointements">
@@ -51,9 +53,8 @@
             <div class="text-center my-4 ">
               
               <div class="flex justify-center -mt-16 ">
-
                 <a  href="{{route('clients.show', $appointement->client->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->client->user->image)}}"></a>
-                 <a href="{{route('tech.show', $appointement->technician->id ) }}"  class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
+                <a  href="{{route('tech.show', $appointement->technician->id ) }}" class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
               </div>
 
                 <div class="py-2">
@@ -85,14 +86,14 @@
         <div class="px-4 py-4">
             <div class="flex gap-2 items-center text-gray-800r mb-4">
                 <div class="flex-1">
-                  <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->client->address}}
+                  <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->address}}
                 </div>
             </div>
 
       
             
-            <div class="flex">
-              
+            <div class="flex ">
+              <div class="flex-1 m-5">
               @if ($appointement->status == 'confirmed')
               <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                 <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
@@ -118,22 +119,25 @@
                                 <span class="relative">{{ $appointement->status }}</span>
                </span>
               @endif
-              
+              </span>
+
+              </div>
+
+          {{-- confermed by --}}
+          
+              @if ($appointement->status == 'confirmed'|| $appointement->status == 'completed')
+              <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 m-3  border-green-500 transform hover:scale-110 "> <img  class=" object-cover rounded-full w-10 h-10"
+                  src="{{asset('images/usersImages/'.$appointement->admin->user->image)}}"></a>
+              @endif
 
             </div>
-
-
-        {{-- add photo of admin who conferms the appointement --}} 
-        @if ($appointement->status == 'confirmed')
-        <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->admin->user->image)}}"></a>
-        @endif
 
             <div class="flex justify-end mr-2">
                  <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Created at - </span>{{$appointement->created_at->diffForHumans()}}</span>
           </div>
         </div>
       </section>
-</div>
+  </div>
 <!-- Card end -->
 @endforeach
 
@@ -151,8 +155,8 @@
               
               <div class="flex justify-center -mt-16 ">
 
-                <a href="{{route('tech.show', $appointement->technician->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->client->user->image)}}"></a>
-                 <a href="{{route('clients.show', $appointement->client->id ) }}" class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
+                <a  href="{{route('clients.show', $appointement->client->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->client->user->image)}}"></a>
+                <a  href="{{route('tech.show', $appointement->technician->id ) }}" class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
               </div>
 
                 <div class="py-2">
@@ -184,14 +188,14 @@
         <div class="px-4 py-4">
             <div class="flex gap-2 items-center text-gray-800r mb-4">
                 <div class="flex-1">
-                  <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->client->address}}
+                  <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->address}}
                 </div>
             </div>
 
       
             
-            <div class="flex">
-              
+            <div class="flex ">
+              <div class="flex-1 m-5">
               @if ($appointement->status == 'confirmed')
               <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                 <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
@@ -217,13 +221,20 @@
                                 <span class="relative">{{ $appointement->status }}</span>
                </span>
               @endif
-              
+              </span>
+
+              </div>
+
+          {{-- confermed by --}}
+          
+              @if ($appointement->status == 'confirmed'|| $appointement->status == 'completed')
+              <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 m-3  border-green-500 transform hover:scale-110 "> <img  class=" object-cover rounded-full w-10 h-10"
+                  src="{{asset('images/usersImages/'.$appointement->admin->user->image)}}"></a>
+              @endif
 
             </div>
         {{-- add photo of admin who conferms the appointement --}} 
-        @if ($appointement->status == 'confirmed')
-        <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->admin->user->image)}}"></a>
-        @endif
+       
 
             <div class="flex justify-end mr-2">
                  <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Created at - </span>{{$appointement->created_at->diffForHumans()}}</span>
@@ -241,15 +252,17 @@
 @if(Auth::user()->hasRole('client'))
 @foreach ($clientappointments as $appointement)
          <!-- Card start -->
+       
          <div id="appointements">
           <section class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
               <div class="border-b px-4 pb-6 mt-32">
                   <div class="text-center my-4 ">
                     
                     <div class="flex justify-center -mt-16 ">
-      
-                      <a href="{{route('tech.show', $appointement->technician->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->client->user->image)}}"></a>
-                       <a href="{{route('clients.show', $appointement->client->id ) }}" class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
+
+                      <a  href="{{route('clients.show', $appointement->client->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->client->user->image)}}"></a>
+                       <a  href="{{route('tech.show', $appointement->technician->id ) }}" class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
+                       
                     </div>
       
                       <div class="py-2">
@@ -281,14 +294,15 @@
               <div class="px-4 py-4">
                   <div class="flex gap-2 items-center text-gray-800r mb-4">
                       <div class="flex-1">
-                        <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->client->address}}
+                        <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Appointement address : </strong> {{$appointement->address}}
                       </div>
                   </div>
+             
       
             
                   
-                  <div class="flex">
-                    
+                  <div class="flex ">
+                    <div class="flex-1 m-5">
                     @if ($appointement->status == 'confirmed')
                     <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                       <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
@@ -314,20 +328,29 @@
                                       <span class="relative">{{ $appointement->status }}</span>
                      </span>
                     @endif
-                    
+                    </span>
+      
+                    </div>
+      
+                {{-- confermed by --}}
+                
+                    @if ($appointement->status == 'confirmed'|| $appointement->status == 'completed')
+                    <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 m-3  border-green-500 transform hover:scale-110 "><img class=" object-cover rounded-full w-10 h-10"
+                        src="{{asset('images/usersImages/'.$appointement->admin->user->image)}}"></a>
+                    @endif
       
                   </div>
 
-           {{-- add photo of admin who conferms the appointement --}} 
-            @if ($appointement->status == 'confirmed')
-            <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->admin->user->image)}}"></a>
-            @endif
-
             
-                  <div class="flex justify-end mr-2">
-                       <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Created at - </span>{{$appointement->created_at->diffForHumans()}}</span>
+                <div class="flex justify-end mr-2">
+                    <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Created at - </span>{{$appointement->created_at->diffForHumans()}}</span>
                 </div>
-              </div>
+                <div class="flex justify-end mr-2">
+                  @foreach($appointement->payments as $payment)
+                  <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Paid at - </span>{{$payment->paid_at}}</span>
+                  @endforeach
+                </div>
+              
             </section>
 
       </div>

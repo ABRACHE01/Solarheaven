@@ -14,8 +14,8 @@
 
 <body>
     <section>
-        
-        <a href="{{ route('services.create') }}" class="group relative block">
+
+        <div class="group relative block">
             <div class="relative h-[350px] sm:h-[450px]">
                 <img src=" {{  asset('img/solar5.jpg') }}" alt=""
                     class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0" />
@@ -31,13 +31,16 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
                 dicta impedit aperiam ipsum!
               </p>
+              @if(Auth::user()->hasRole('admin'))
               <span
                 class="inline-block px-5 py-3 mt-3 text-xs font-medium tracking-wide text-white uppercase bg-green-600"
               ><i class="fa fa-plus"></i> 
-                Service
+               <a href="{{ route('services.create') }}" >Service</a> 
               </span>
+              @endif
             </div>
-        </a>
+          </div>
+        
     </section>
 
     <section class="relative pt-24 pb-36 bg-blueGray-100  overflow-hidden">
@@ -52,7 +55,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
 
                 @foreach ($services as $service)
+
                 <div class="container group relative block overflow-hidden">
+
+                  @if(Auth::user()->hasRole('admin'))
                   <button id="dropdownDelayButton-{{ $service->id }}" data-dropdown-toggle="dropdownDelay-{{ $service->id }}" data-dropdown-delay="500" data-dropdown-trigger="hover" class="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
                     <span class="sr-only">Wishlist</span>
                     <svg
@@ -79,10 +85,9 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                       </li>    
-                  </div>
+                </div>
+                @endif
                     
-                      
-                      
                         <img
                         @foreach($service->images as $image)
                           src="{{ asset('images/serviceImages/' . $image->url) }}"
@@ -92,11 +97,14 @@
                         />
                       
                         <div class="relative border border-gray-100 bg-white p-6">
+
+                          @if(Auth::user()->hasRole('client'))
                           <a  href="{{ route('services.show', $service->id) }}"
                             class="whitespace-nowrap bg-green-100 px-3 py-1.5 text-xs font-medium"
                           >
                             Show service details
                         </a>
+                         @endif
                       
                           <h3 class="mt-4 text-lg font-medium text-gray">{{ $service->name }}</h3>
                           <p class="mt-2 text-sm text-gray-500">{{ $service->description }}</p>
@@ -106,17 +114,23 @@
                             <p class="text-sm font-medium text-gray-900">{{ $service->price }}$</p>
 
                           </div>
-
+                          @if(Auth::user()->hasRole('client'))
                             <button
                               class="block w-full rounded bg-green-100 p-4 text-sm font-medium transition hover:scale-105"
                             >
                             <a href="{{ route('appointments.service', $service->id) }}" >Book service</a>
                             </button>
+
+                            @elseif(Auth::user()->hasRole('admin') || Auth::user()->hasRole('technician'))
+                            <button
+                            class="block w-full rounded bg-green-100 p-4 text-sm font-medium transition hover:scale-105"
+                          >
+                          <a href="{{ route('services.show', $service->id) }}" >Show service details</a>
+                          </button>
+                          @endif
                         </div>
                 </div>
-            
                @endforeach
-                
             </div>
         </div>
     </section>

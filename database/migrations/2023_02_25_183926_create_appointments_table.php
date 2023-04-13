@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('technician_id')->constrained('technicians')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->date('start_time');
+            $table->string('address')->nullable();
             $table->dateTime('end_time')->nullable();
             $table->enum('status', ['requested', 'confirmed','completed', 'cancelled'])->default('requested');
             $table->unsignedBigInteger('admin_id')->nullable();

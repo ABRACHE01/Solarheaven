@@ -51,11 +51,8 @@ Route::get('/appointments/service/{service}', [AppointementController::class, 'c
 Route::get('/appointments/technician/{technician}', [AppointementController::class, 'reserveByTech'])->name('appointments.technician');
 
 
-//confirm appointment
-// Route::put('appointments/{appointment}/confirm', [AppointementController::class, 'confirm'])->name('appointments.confirmation');
-
-
-// Route::put('/appointments/confirm', [AppointementController::class, 'confirm'])->name('appointments.confirmation');
+//payment routes
+Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
 
 
 

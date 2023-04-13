@@ -20,13 +20,23 @@
     
         <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
           <div class="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:mt-0 md:pl-7">
-      
-            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('cities.index') }}">cities</a>
-            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('tech.index') }}" >technicians</a>
-            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('clients.index') }}">clients</a>
-            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('appointments.index') }}">appointements</a>
-            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('admins.index') }}">admins</a>
-            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('services.index') }}">services</a>
+
+            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('tech.index') }}" >Technicians</a>
+
+
+
+            @if (Auth::user()->hasRole('technician'))
+            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('clients.index') }}">Clients</a>
+             <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('admins.index') }}">Admins</a>
+            @endif
+
+            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('appointments.index') }}">Appointements</a>
+
+            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('reviews.index') }}">Reviews</a>
+            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('services.index') }}">Services</a>
+
+            <a class="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="{{ route('payment.index') }}">Payments</a>
+
            
             <div
               class="flex flex-1 items-center justify-between gap-8 sm:justify-end"
@@ -114,5 +124,4 @@
       </nav>
 
       
-    
     </header>

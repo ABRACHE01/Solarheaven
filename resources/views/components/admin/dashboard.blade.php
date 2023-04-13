@@ -125,8 +125,6 @@
             </li>
         </ol>
 
-        {{-- <div>{{ now()->format('l jS \\of F Y ') }}</div> --}}
-
         </section>
 
             
@@ -154,7 +152,9 @@
                         <p class="text-4xl font-medium text-gray-800">{{ $techniciansCount }}</p>
                         <div class="float-right flex -space-x-2">
                             @foreach ($latestTechnicians as $technician)
+                            <a href="{{ route('tech.show', $technician->id) }}">
                                 <img class="h-7 w-7 rounded-full ring ring-white" src="{{ asset('images/usersImages/'.$technician->user->image) }}" />
+                            </a>
                             @endforeach
                             <div class="flex h-7 w-7 items-center justify-center rounded-full bg-gray-300 font-semibold text-white ring ring-white">+</div>
                           </div>
@@ -173,7 +173,9 @@
                         <p class="text-4xl font-medium text-gray-800">{{ $adminsCount }}</p>
                         <div class="float-right flex -space-x-2">
                             @foreach ($latestAdmins as $admin)
+                            <a href="{{ route('admins.show', $admin->id) }}">
                                 <img class="h-7 w-7 rounded-full ring ring-white" src="{{ asset('images/usersImages/' . $admin->user->image) }}" />
+                           </a>
                             @endforeach
                             <div class="flex h-7 w-7 items-center justify-center rounded-full bg-gray-300 font-semibold text-white ring ring-white">+</div>
                           </div>
@@ -193,7 +195,9 @@
                         <div class="float-right flex -space-x-2">
 
                             @foreach ($latestClients as $client)
+                            <a href="{{ route('clients.show', $client->id) }}">
                                 <img class="h-7 w-7 rounded-full ring ring-white" src="{{ asset('images/usersImages/' . $client->user->image) }}" />
+                            </a>
                             @endforeach
                             <div class="flex h-7 w-7 items-center justify-center rounded-full bg-gray-300 font-semibold text-white ring ring-white">+</div>
                           </div>
@@ -487,15 +491,15 @@
         </div>
             </section>
 
-         <section class="grid grid-cols-1 gap-5 sm:grid-cols-1 mt-4 lg:grid-cols-3 ">
+ <section class="grid grid-cols-1 gap-5 xl:grid-cols-4 mt-4 ">
 
-            <div class="max-w-md rounded-lg border px-6 pt-6 pb-10  bg-white">
+            <div class="max-w-[100%] rounded-lg border px-6 pt-6 pb-10  bg-white">
                 <div class="flex justify-between">
                     <p class="text-lg font-medium">Latest admins</p>
                     <a class="font-semibold text-green-600" href="{{ route('admins.index') }}">See all</a>
                 </div>
             @foreach($latestAdmins as $admin)
-            <a href="{{ route('admins.show', $admin->id) }}" >
+            <a href="{{ route('admins.show', $admin->id) }}">
                 <div class="flex items-center py-2">
                   <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('images/usersImages/' . $admin->user->image ) }}" alt="Simon Lewis" />
                   <p class="ml-4 w-56">
@@ -507,7 +511,7 @@
             @endforeach
             </div>
 
-            <div class="max-w-md rounded-lg border px-6 pt-6 pb-10  bg-white">
+            <div class="max-w-[100%] rounded-lg border px-6 pt-6 pb-10  bg-white">
               
                 <div class="flex justify-between">
                     <p class="text-lg font-medium">Latest Clients </p>
@@ -526,7 +530,7 @@
                 @endforeach
             </div>
 
-            <div class="max-w-md rounded-lg border px-6 pt-6 pb-10  bg-white">  
+            <div class="max-w-[100%] rounded-lg border px-6 pt-6 pb-10  bg-white">  
                 <div class="flex justify-between">
                     <p class="text-lg font-medium">Latest Technicians </p>
                     <a class="font-semibold text-green-600" href="{{ route('tech.index') }}">See all</a>
@@ -544,8 +548,60 @@
                 @endforeach
 
             </div>
+
+
+            <div class="max-w-[100%] rounded-lg border px-6 pt-6 pb-10  bg-white">
+
+                <div class="flex justify-between">
+                    <p class="text-lg font-medium">Latest Payments </p>
+                    <a class="font-semibold text-green-600" href="{{ route('payment.index') }}">See all</a>
+                </div>
+                @foreach($latestPayments as $payment)
+               <div class="border-b border-t m-3 border-gray-200 pb-2">
+                    <a href="{{ route('clients.show', $payment->appointment->client->id )}}">
+                        <div class="flex items-center py-2">
+                          <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('images/usersImages/' .  $payment->appointment->client->user->image  ) }}" alt="Simon Lewis" />
+                          <p class="ml-4 w-56">
+                            <strong class="block font-medium">{{  $payment->appointment->client->user->name  }}</strong>
+                            <span class="text-xs text-gray-400"> {{ $payment->appointment->client->user->phone_number }} </span>
+                          </p>
+                        </div>
+                       
+                       
+                      @if ($payment->status == 'paid')
+                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                             <span class="relative">{{ $payment->status }}</span>
+                      </span>  
+                      @elseif($payment->status == 'failed')
+                      <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                        <span aria-hidden class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">{{ $payment->status}}</span>
+                                        </span>
+                      @elseif($payment->status == 'refunded') 
+                      <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
+                        <span aria-hidden class="absolute inset-0 bg-blue-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">{{ $payment->status }}</span>
+                                        </span>
+
+                      @elseif($payment->status == 'pending')
+                      <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+                        <span aria-hidden class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">{{ $payment->status }}</span>
+                                        </span>
+                      @endif
+                    </a>
+                @endforeach
+            </div>
+    </div>
+
+      
+
+           
             
-        </section>
+ </section>
+       
+    
     @include('components.footer')
 
         </div>

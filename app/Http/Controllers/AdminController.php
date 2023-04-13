@@ -15,6 +15,10 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:all-admins')->only(['index']);
+        $this->middleware('can:create-admin')->only(['create', 'store']);
+        $this->middleware('can:show-admin')->only(['show']);
+        $this->middleware('can:update-admin')->only(['edit', 'update']);
         
     }
     

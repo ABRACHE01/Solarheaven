@@ -8,9 +8,7 @@ use App\Models\Service;
 use App\Models\Technician;
 use App\Models\City;
 use App\Models\Client;
-use App\Models\User;
-use App\Models\Admin;
-use App\Models\Payment;
+
 
 
 class AppointementController extends Controller
@@ -20,8 +18,8 @@ class AppointementController extends Controller
         $this->middleware('auth');
 
         $this->middleware('can:all-appointments')->only(['index']);
-        // $this->middleware('can:create-appointment')->only(['create', 'store']);
-        // $this->middleware('can:show-appointment')->only(['show']);
+        $this->middleware('can:create-appointment')->only(['create', 'store']);
+        $this->middleware('can:show-appointment')->only(['show']);
         // $this->middleware('can:update-appointment')->only(['edit', 'update']);
         $this->middleware('can:delete-appointment')->only(['destroy']);
 
@@ -83,7 +81,7 @@ class AppointementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'client_id' => 'required',
+            'address' => 'required',
             'service_id' => 'required',
             'technician_id' => 'required',
             'city_id' => 'required',
@@ -106,6 +104,7 @@ class AppointementController extends Controller
             'client_id' => $request->client_id,
             'service_id' => $request->service_id,
             'technician_id' => $request->technician_id,
+            'address' => $request->address,
             'city_id' => $request->city_id,
             'start_time' => $request->start_time,
             'admin_id' => $request->admin_id,
@@ -113,7 +112,8 @@ class AppointementController extends Controller
     
         //relate the appointment with the payment
         $appointment->payments()->create([
-            'amount' => $appointment->service->price,
+            'appointment_id' => $appointment->id,
+            // 'amount' => $appointment->service->price,
         ]);
         return redirect()->route('appointments.index');
     }
@@ -124,31 +124,7 @@ class AppointementController extends Controller
         return view('appointments.show', compact('appointment'));
     }
 
-    // public function confirm(Request $request)
-    // {
-    //     // Get the appointment ID from the input request
-    //     $appointment_id = $request->input('appointment_id');
-    
-    //     // Find the appointment record in the database
-    //     $appointment = Appointment::find($appointment_id);
-    
-    //     // Check if the appointment was found in the database
-    //     if (!$appointment) {
-    //         return redirect()->back()->withErrors(['Appointment not found']);
-    //     }
-    
-    //     // Update the appointment status to "confirmed" enum value
-    //     $appointment->status = 'confirmed';
-    
-    //     // Update the appointment admin_id to the current authenticated user
-    //     $appointment->admin_id = auth()->user()->id;
-    
-    //     // Save the appointment
-    //     $appointment->save();
-    
-    //     // Redirect back to the appointments page
-    //     return redirect()->route('appointments.index');
-    // }
+
 
     public function edit(Appointment $appointment)
     {
@@ -170,20 +146,20 @@ class AppointementController extends Controller
             $appointment->update(['admin_id' => auth()->user()->admin->id]);
         }
 
+
         //if status is completed  changed
         if($appointment->status == 'completed'){
 
             $appointment->update(['end_time' => now()]);
 
-            $appointment->appointementHistory()->create([
-                'client_id' => $appointment->client_id,
-                'service_id' => $appointment->service_id,
-                'technician_id' => $appointment->technician_id,
-                'city_id' => $appointment->city_id,
-                'start_time' => $appointment->start_time,
-                'end_time' => $appointment->end_time,
-                'admin_id' => $appointment->admin_id,
-                'status' => $appointment->status,
+            $appointment->payments()->create([
+                'appointment_id' => $appointment->id,
+                'amount' => $appointment->service->price,
+                'extra_charges' => $request->extra_charges,
+                'paid_at' => $request->paid_at,
+                'note' => $request->note,
+                'method' =>$request->method,
+                'status' => $request->payment_status,
             ]);
 
         }
@@ -191,16 +167,7 @@ class AppointementController extends Controller
         //if status is canceled  changed
         if($appointment->status == 'canceled'){
 
-            $appointment->appointementHistory()->create([
-                'client_id' => $appointment->client_id,
-                'service_id' => $appointment->service_id,
-                'technician_id' => $appointment->technician_id,
-                'city_id' => $appointment->city_id,
-                'start_time' => $appointment->start_time,
-                'end_time' => $appointment->end_time ?? null,
-                'admin_id' => $appointment->admin_id,
-                'status' => $appointment->status,
-            ]);
+            $appointment->update(['admin_id' => auth()->user()->admin->id]);
         }
     
         return redirect()->route('appointments.index');
