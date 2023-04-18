@@ -14,7 +14,7 @@
             </ul>
         </div>
     @endif
-    <div class="mx-auto w-full max-w-[550px] bg-white">
+    <div class="mx-auto w-full max-w-[550px] ">
         <form method="POST" action="{{ route('tech.store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="mb-5 pt-3">

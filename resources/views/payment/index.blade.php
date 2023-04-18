@@ -7,7 +7,7 @@
 @include('components.authnavbar')
 
 <!-- Table Section -->
-<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto h-[60vh]">
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto ">
   <!-- Card -->
   <div class="flex flex-col">
     <div class="-m-1.5 overflow-x-auto">
@@ -50,6 +50,15 @@
                     </span>
                   </div>
                 </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      appointemet status
+                    </span>
+                  </div>
+                </th>
+
 
                 <th scope="col" class="px-6 py-3 text-left">
                   <div class="flex items-center gap-x-2">
@@ -107,6 +116,7 @@
                       </span>
                     </div>
                   </th>
+                  
 
               </tr>
             </thead>
@@ -134,7 +144,15 @@
                   </td>
                   <td class="h-px w-px whitespace-nowrap">
                     <div class="px-6 py-3 text-sm text-gray-500 ">
-                      <span>{{ $payment->appointment->id }}</span>
+                      <span>#{{ $payment->appointment->id }}</span>
+                    </div>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-3 text-sm text-gray-500 ">
+                   
+                      <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-blue-100 text-green-800 dark:bg-green-900 dark:text-blue-200">
+                        {{ $payment->appointment->status }}
+                      </span>
                     </div>
                   </td>
 
@@ -179,7 +197,7 @@
 
                 <td class="h-px w-px whitespace-nowrap">
                   <div class="px-6 py-3">
-                    <span class="text-sm text-gray-500">{{$payment->paid_at }}</span>
+                    <span class="text-sm text-gray-500">{{$payment->created_at->diffForHumans() }}
                   </div>
                 </td>
             
@@ -224,10 +242,9 @@
   </div>
   <!-- End Card -->
 </div>
+@include('components.footer')
 <!-- End Table Section -->
 
 
-
-
-@include('components.footer')
 @endsection
+

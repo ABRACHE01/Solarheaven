@@ -12,10 +12,11 @@ class ReviewController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
     public function index()
     {
-        $reviews = Review::with('appointment')->get();
+        $reviews = Review::with('appointment')->latest()->paginate(10);
        
         return view('reviews.index', ['reviews' => $reviews]); 
     }
@@ -26,9 +27,10 @@ class ReviewController extends Controller
         return view('reviews.show', ['review' => $review]);
     }
 
-    public function create()
+    public function create($id)
     {
-        $appointments = Appointment::all();
+
+        $appointments = Appointment::with('service')->find($id);
         return view('reviews.create',compact('appointments'));
     }
 

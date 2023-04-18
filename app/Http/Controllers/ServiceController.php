@@ -37,26 +37,30 @@ class ServiceController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'url' => 'required|image',
+            'url.*' => 'required|image', // Accept an array of images
         ]);
-
-        $image = $request->file('url');
-        $image_name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('images/serviceImages');
-        $image->move($destinationPath, $image_name);
     
         $service = Service::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'admin_id' => Admin::where('user_id', Auth::user()->id)->first()->id, 
+            'admin_id' => Admin::where('user_id', Auth::user()->id)->first()->id,
         ]);
+    
+        $destinationPath = public_path('images/serviceImages');
+    
+        // Loop through the images
+        $images = $request->file('url') ;
+        foreach ($images as $image) {
 
-        // Save the image URL 
-        $imageModel = new Image();
-        $imageModel->url = $image_name;
-        $imageModel->service_id = $service->id;
-        $imageModel->save();
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $image->move($destinationPath, $image_name);
+
+            Image::create([
+                'url'=>$image_name,
+                'service_id'=>$service->id
+            ]);
+        }
 
         return redirect()->route('services.index')->with('success', 'Service created successfully');
     }

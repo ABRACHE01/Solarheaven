@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestEmail;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\Technician;
 use App\Models\City;
 use App\Models\Client;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class AppointementController extends Controller
 {
+
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -24,9 +28,10 @@ class AppointementController extends Controller
         $this->middleware('can:delete-appointment')->only(['destroy']);
 
     }
+
     public function index()
     {
-        $appointments = Appointment::with('client','technician', 'service','payments')->get();
+        $appointments = Appointment::with('client','technician', 'service','payments')->latest()->paginate(10);
 
 
         if(auth()->user()->hasRole('technician')){  
@@ -110,11 +115,7 @@ class AppointementController extends Controller
             'admin_id' => $request->admin_id,
         ]);
     
-        //relate the appointment with the payment
-        $appointment->payments()->create([
-            'appointment_id' => $appointment->id,
-            // 'amount' => $appointment->service->price,
-        ]);
+
         return redirect()->route('appointments.index');
     }
 
@@ -123,7 +124,6 @@ class AppointementController extends Controller
         $appointment->load('client', 'technician', 'service');
         return view('appointments.show', compact('appointment'));
     }
-
 
 
     public function edit(Appointment $appointment)
@@ -141,14 +141,34 @@ class AppointementController extends Controller
     
         //if status is confirmed  changed
 
-        if($appointment->status == 'confirmed' || $appointment->status == 'canceled'){
+        if(($appointment->status == 'confirmed' || $appointment->status == 'canceled') && Auth::user()->hasRole('admin')){
 
             $appointment->update(['admin_id' => auth()->user()->admin->id]);
+
+            if($appointment->status == 'confirmed'){
+           
+            
+            $appointementdata = [
+                'client_name' => $appointment->client->user->name,
+                'client_phone' => $appointment->client->user->phone_number,
+                'service_name' => $appointment->service->name,
+                'service_price' => $appointment->service->price,
+                'technician_name' => $appointment->technician->user->name,
+                'appointment_date' => $appointment->start_time,
+                'appointment_address' => $appointment->address,
+                'appointment_city' => $appointment->city->name,
+            ];
+
+            Mail::to($appointment->client->user->email)->send(new TestEmail($appointementdata));
+            Mail::to($appointment->technician->user->email)->send(new TestEmail($appointementdata));
+
         }
 
+        }
+        
 
         //if status is completed  changed
-        if($appointment->status == 'completed'){
+        if($appointment->status == 'completed' && Auth::user()->hasRole('technician')){
 
             $appointment->update(['end_time' => now()]);
 
@@ -165,18 +185,31 @@ class AppointementController extends Controller
         }
 
         //if status is canceled  changed
-        if($appointment->status == 'canceled'){
+        if($appointment->status == 'cancelled' && Auth::user()->hasRole('admin') ){
 
             $appointment->update(['admin_id' => auth()->user()->admin->id]);
+
+            // use soft delete
+            $appointment->delete();
+            
         }
-    
+
         return redirect()->route('appointments.index');
     }
 
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
-        $appointment->delete();
-        return redirect()->route('appointments.index');
+       $appointment = Appointment::withTrashed()->find($id);
+        $appointment->forceDelete();
+    
+        return redirect()->route('appointments.canceled');
+    }
+
+    //trash appointments
+    public function canceled()
+    {
+        $canceledAppointments = Appointment::onlyTrashed()->get();
+        return view('appointments.canceled', compact('canceledAppointments'));
     }
 
 }

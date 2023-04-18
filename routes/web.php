@@ -30,11 +30,13 @@ Route::get('/', [LandingController::class,'index'])->name('welcome');
 Route::Resource('cities', CityController::class);
 Route::Resource('tech', TechnicianController::class);
 
-Route::resource('appointments', AppointementController::class);
 
-Route::resource('admins', AdminController::class);
+Route::Resource('appointments', AppointementController::class);
 
-Route::resource('appointment-histories', AppointmentHistoryController::class);
+
+
+Route::Resource('admins', AdminController::class);
+
 
 Route::get('cities/{city}/sort', [CityController::class, 'sort_by_city'])->name('cities.sort');
 
@@ -54,8 +56,11 @@ Route::get('/appointments/technician/{technician}', [AppointementController::cla
 //payment routes
 Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
 
+//make review
+Route::get('/reviews/create/{appointment}', [ReviewController::class, 'create'])->name('take.review');
 
-
+//canceled appointment
+Route::get('/canceled', [AppointementController::class, 'canceled'])->name('appointments.canceled');
 
 //profile routes 
 Route::get('profile/{id}', [ProfileController::class, 'index'])->name('profile.index');

@@ -12,11 +12,12 @@ use App\Models\City;
 use App\Models\Review;
 use App\Models\AppointmentHistory;
 use App\Models\Payment;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Appointment extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes ;
 
     protected $fillable = [
         'client_id', 'technician_id','localisation', 'city_id' ,

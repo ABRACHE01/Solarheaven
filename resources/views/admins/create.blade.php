@@ -5,7 +5,7 @@
 @include('components.authnavbar')
     <div class="flex items-center justify-center p-12">
     <!-- Author: FormBold Team -->
-    <div class="mx-auto w-full max-w-[550px] bg-white">
+    <div class="mx-auto w-full max-w-[550px] ">
         <form method="POST" action="{{ route('admins.store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="mb-5 pt-3">

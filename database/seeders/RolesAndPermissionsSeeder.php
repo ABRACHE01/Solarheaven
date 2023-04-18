@@ -50,6 +50,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'create-city']);
         Permission::create(['name' => 'delete-city']);
 
+        Permission::create(['name' => 'show-caceled']);
+        Permission::create(['name' => 'delete-caceled']);
+
+        Permission::create(['name' => 'show-payments']);
+
+
 
     
         
@@ -82,6 +88,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->givePermissionTo('show-admin');
         $adminRole->givePermissionTo('delete-admin');
 
+        $adminRole->givePermissionTo('show-caceled');
+        $adminRole->givePermissionTo('delete-caceled'); 
+        $adminRole->givePermissionTo('show-payments');
         // Technician
         $technicianRole->givePermissionTo('all-clients');
         $technicianRole->givePermissionTo('show-client');
@@ -89,6 +98,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $technicianRole->givePermissionTo('show-appointment');
         $technicianRole->givePermissionTo('all-admins');
         $technicianRole->givePermissionTo('show-admin');
+        $technicianRole->givePermissionTo('show-payments');
 
         
         // Client

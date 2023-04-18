@@ -17,9 +17,7 @@
         <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray-900">
          Our appointements
       </h1>
-   
-           
-     
+
         <label
             class="mx-auto mt-8 relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
             for="search-bar">
@@ -88,6 +86,7 @@
                 <div class="flex-1">
                   <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->address}}
                 </div>
+                
             </div>
 
       
@@ -135,6 +134,11 @@
             <div class="flex justify-end mr-2">
                  <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Created at - </span>{{$appointement->created_at->diffForHumans()}}</span>
           </div>
+          <div class="flex justify-end mr-2">
+            @foreach($appointement->payments as $payment)
+            <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Paid at - </span>{{$payment->paid_at}}</span>
+            @endforeach
+          </div>
         </div>
       </section>
   </div>
@@ -149,11 +153,16 @@
        @foreach ($appointments as $appointement)
          <!-- Card start -->
   <div id="appointements">
+   
     <section class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+      <div class="m-4 bold">ref : #{{$appointement->id}}</div>
+      
         <div class="border-b px-4 pb-6 mt-32">
+          
             <div class="text-center my-4 ">
               
               <div class="flex justify-center -mt-16 ">
+                
 
                 <a  href="{{route('clients.show', $appointement->client->id ) }}" class=" object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  w-20 h-20"  src="{{asset('images/usersImages/'.$appointement->client->user->image)}}"></a>
                 <a  href="{{route('tech.show', $appointement->technician->id ) }}" class="  object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  w-20 h-20 " src="{{asset('images/usersImages/'.$appointement->technician->user->image)}}"></a>
@@ -189,11 +198,12 @@
             <div class="flex gap-2 items-center text-gray-800r mb-4">
                 <div class="flex-1">
                   <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Client address : </strong> {{$appointement->address}}
+                 
                 </div>
+                
             </div>
 
-      
-            
+
             <div class="flex ">
               <div class="flex-1 m-5">
               @if ($appointement->status == 'confirmed')
@@ -224,8 +234,7 @@
               </span>
 
               </div>
-
-          {{-- confermed by --}}
+              
           
               @if ($appointement->status == 'confirmed'|| $appointement->status == 'completed')
               <a href="{{route('admins.show', $appointement->admin->id ) }}" class=" object-cover rounded-full border-2 m-3  border-green-500 transform hover:scale-110 "> <img  class=" object-cover rounded-full w-10 h-10"
@@ -239,7 +248,15 @@
             <div class="flex justify-end mr-2">
                  <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Created at - </span>{{$appointement->created_at->diffForHumans()}}</span>
           </div>
+          <div class="flex justify-end mr-2">
+            @foreach($appointement->payments as $payment)
+            <span class="text-gray-600 text-xs font-semibold tracking-wide uppercase"><span class="text-black ">Paid at - </span>{{$payment->paid_at}}</span>
+            @endforeach
+            
+          </div>
+          
         </div>
+       
       </section>
 </div>
 <!-- Card end -->
@@ -296,6 +313,7 @@
                       <div class="flex-1">
                         <strong class="text-black"><i class="fa fa-calendar mx-2 "></i>Appointement address : </strong> {{$appointement->address}}
                       </div>
+                      
                   </div>
              
       

@@ -11,7 +11,7 @@
 
  
   <div class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-        <div class="mx-auto w-full max-w-[550px] bg-white">
+        <div class="mx-auto w-full max-w-[550px]">
             @if(count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>
@@ -71,6 +71,7 @@
                   class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />
               </div>
+
       
             <div class="mb-6 pt-4">
               <label class="mb-5 block text-xl font-semibold text-[#07074D]">
@@ -78,7 +79,7 @@
               </label>
       
               <div class="mb-8">
-                <input type="file"   id="file" name="url" class="sr-only" />
+                <input type="file"   id="file" name="url[]" class="sr-only" accept="image/*" multiple>
                 <label
                   for="file"
                   class="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center"
@@ -114,16 +115,15 @@
 
     <div id="preview" class="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
      
-      <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg" alt="Walnut card tray filled with cards and card angled in dedicated groove." class="rounded-lg bg-gray-100">
-      <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg" alt="Walnut card tray filled with cards and card angled in dedicated groove." class="rounded-lg bg-gray-100">
-      <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg" alt="Walnut card tray filled with cards and card angled in dedicated groove." class="rounded-lg bg-gray-100">
-      <img src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg" alt="Walnut card tray filled with cards and card angled in dedicated groove." class="rounded-lg bg-gray-100">
-
+      <img src="{{ asset('images/staticpictures/photo-frame.png') }}"  alt="Walnut card tray filled with cards and card angled in dedicated groove." class="">
+      <img src="{{ asset('images/staticpictures/photo-frame.png') }}"  alt="Walnut card tray filled with cards and card angled in dedicated groove." class="">
+      <img src="{{ asset('images/staticpictures/photo-frame.png') }}"  alt="Walnut card tray filled with cards and card angled in dedicated groove." class="">
+      <img src="{{ asset('images/staticpictures/photo-frame.png') }}"  alt="Walnut card tray filled with cards and card angled in dedicated groove." class="">
     </div>
 
   </div>
 
-    <script>
+<script>
     document.getElementById('file').addEventListener('change', function() {
         var preview = document.getElementById('preview');
         preview.innerHTML = '';
@@ -132,7 +132,7 @@
             reader.onload = function(e) {
                 var img = document.createElement('img');
                 img.setAttribute('src', e.target.result);
-                img.setAttribute('class', 'rounded-lg bg-gray-100 object-cover h-[280px] w-[280px]');
+                img.setAttribute('class', 'rounded-lg bg-gray-100 w-[300px] h-[300px] object-cover object-center');
                 preview.appendChild(img);
             };
             reader.readAsDataURL(this.files[i]);
