@@ -8,7 +8,7 @@
 <h4
 class="md:text-8xl xl:text-1 text-center font-bold font-heading tracking-px-n pt-14 leading-none">
 Book a Service now </h4>
-
+<div>
 <div class="flex items-center justify-center p-12">
     <!-- Author: FormBold Team -->
 
@@ -16,7 +16,7 @@ Book a Service now </h4>
     {{-- success --}}
     
 
-<div class="mx-auto w-full max-w-[550px] bg-white">
+<div class="mx-auto w-full max-w-[550px]">
             {{-- errore --}}
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -90,7 +90,7 @@ Book a Service now </h4>
             <label for="service_id" class="mb-3 block text-base font-medium text-[#07074D]">
                 Technician
             </label>
-            <select name="technician_id" id="technician_id" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+        <select name="technician_id" id="technician_id" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
             @if ($technicians->count() == 0)
             <option value="">No technicians available</option>
         @endif
@@ -142,6 +142,7 @@ Book a Service now </h4>
                 </div>
            
             </div>
+            
 
             <div class="mb-5 pt-3">
                 <div class="-mx-3 flex flex-wrap">
@@ -158,6 +159,7 @@ Book a Service now </h4>
     
                         </div>
                     </div>
+
 
                     <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
@@ -178,9 +180,15 @@ Book a Service now </h4>
                 </button>
             </div>
         </form>
+        
     </div>
+
 </div>
+
+</div>
+@include('components.footer')
 @endsection
+
 
 
 

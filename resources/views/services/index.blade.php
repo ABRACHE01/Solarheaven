@@ -57,7 +57,8 @@
                 @foreach ($services as $service)
 
                 <div class="container group relative block overflow-hidden">
-
+                  <a href="{{route('admins.show', $service->admin->id ) }}"  class=" object-cover rounded-full w-10 h-10 transform hover:scale-110 absolute left-4 top-4 z-10 rounded-full bg-white  text-gray-900 transition hover:text-gray-900/75" ><img 
+                    src="{{asset('images/usersImages/'.$service->admin->user->image)}}"></a>
                   @if(Auth::user()->hasRole('admin'))
                   <button id="dropdownDelayButton-{{ $service->id }}" data-dropdown-toggle="dropdownDelay-{{ $service->id }}" data-dropdown-delay="500" data-dropdown-trigger="hover" class="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
                     <span class="sr-only">Wishlist</span>
@@ -98,22 +99,41 @@
                       
                         <div class="relative border border-gray-100 bg-white p-6">
 
+                    
+                      
+                         <div class="flex items-baseline">
                           @if(Auth::user()->hasRole('client'))
                           <a  href="{{ route('services.show', $service->id) }}"
-                            class="whitespace-nowrap bg-green-100 px-3 py-1.5 text-xs font-medium"
+                            class="whitespace-nowrap bg-teal-200 text-teal-800 px-3 py-1.5 text-xs font-medium"
                           >
                             Show service details
                         </a>
                          @endif
-                      
-                          <h3 class="mt-4 text-lg font-medium text-gray">{{ $service->name }}</h3>
-                          <p class="mt-2 text-sm text-gray-500">{{ $service->description }}</p>
-                          
-                          <div class="m-4 flex items-center">
-                            
-                            <p class="text-sm font-medium text-gray-900">{{ $service->price }}$</p>
-
+                            <div class="ml-2 text-gray-600 text-xs uppercase font-semibold tracking-wide">
+                              {{$service->created_at->diffForHumans()}}
+                              &bull;  {{$service->admin->user->name}}
+                            </div>
                           </div>
+                          <h4 class="mt-2 font-semibold text-lg leading-tight truncate">{{$service->name}}</h4>
+
+                          <div class="mt-1">
+                            <span>{{ $service->price }} DH</span>
+                            <span class="text-gray-600 text-sm">/ all</span>
+                          </div>
+                          <div class="mt-2 flex items-center mb-4">
+                            <span class="text-teal-600 font-semibold">
+                              <span>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>
+                                </span>
+                                <span class="ml-2 text-gray-600 text-sm">34 reviews</span>
+                        </div>
+  
+
                           @if(Auth::user()->hasRole('client'))
                             <button
                               class="block w-full rounded bg-green-100 p-4 text-sm font-medium transition hover:scale-105"
@@ -123,7 +143,7 @@
 
                             @elseif(Auth::user()->hasRole('admin') || Auth::user()->hasRole('technician'))
                             <button
-                            class="block w-full rounded bg-green-100 p-4 text-sm font-medium transition hover:scale-105"
+                            class="block w-full rounded bg-green-100 p-4 text-sm  transition hover:scale-105 font-extrabold uppercase text-gray-500"
                           >
                           <a href="{{ route('services.show', $service->id) }}" >Show service details</a>
                           </button>

@@ -63,8 +63,9 @@ class HomeController extends Controller
 
         //client spesific appointments
         if(Auth::user()->hasRole('client')){
-
-            $clientAppointments = Appointment::with('reviews')->where('client_id', Auth::user()->client->id)->latest()->paginate(5);
+            // client appointement with trashed
+            
+            $clientAppointments = Appointment::withTrashed()->with('reviews')->where('client_id', Auth::user()->client->id)->latest()->paginate(5);
            $appointmentId = $clientAppointments->first()->id ?? null;
             $clientReviews = $appointmentId ? Review::where('appointment_id', $appointmentId)->get() : null;
            
@@ -75,7 +76,7 @@ class HomeController extends Controller
 
 
         if(Auth::user()->hasRole('technician')){
-            $technicianAppointments = Appointment::with('reviews')->where('technician_id', Auth::user()->technician->id)->latest()->paginate(5);
+            $technicianAppointments = Appointment::withTrashed()->with('reviews')->where('technician_id', Auth::user()->technician->id)->latest()->paginate(5);
             $appointmentId = $technicianAppointments->first()->id ?? null;
             $technicianReviews = $appointmentId ? Review::where('appointment_id', $appointmentId)->get() : null;
         }else{

@@ -5,36 +5,7 @@
 
 
 <style>
-    /*
-      You may need this for responsive background
-      header {
-          background: url('bg-425.jpg');
-      }
-
-      @media only screen and (min-width:640px) {
-          header {
-              background: url('bg-640.jpg');
-          }
-      }
-
-      @media only screen and (min-width:768px) {
-          header {
-              background: url('bg-768.jpg');
-          }
-      }
-
-      @media only screen and (min-width:1024px) {
-          header {
-              background: url('bg-1024.jpg');
-          }
-      }
-
-      @media only screen and (min-width:1025px) {
-          header {
-              background: url('bg-max.jpg');
-          }
-      } */
-    /* Default background by https://www.pexels.com/@knownasovan */
+   
 
     .hide-scroll-bar {
         -ms-overflow-style: none;
@@ -53,7 +24,14 @@
 
   @include('components.navbar')
 
+
   <!-- Opened Nav in Mobile, you can use javascript/jQuery -->
+  
+  {{-- <button id="nav-open" class="fixed top-0 right-0 z-10 p-2 m-2 text-white bg-green-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+  </button> --}}
   <div id="nav-opened" class="fixed left-0 right-0 hidden bg-white mx-2 mt-16 rounded-br rounded-bl shadow z-10">
       <div class="p-2 divide-y divide-gray-600 flex flex-col">
           <a href="#about" class="p-2 font-semibold hover:text-green-700">About</a>
@@ -122,9 +100,9 @@
       </div>
 </section> 
    
-<section class="relative pt-24 pb-36  overflow-hidden">
+<section class=" pt-24 pb-36  overflow-hidden">
     <img class="absolute bottom-0 left-1/2 transform -translate-x-1/2"  src="flaro-images/contact/gradient.svg" alt="">
-    <div class="relative z-10 container px-4 mx-auto">
+    <div class=" z-10 container px-4 mx-auto">
       <h2 class="mb-5 text-6xl md:text-8xl xl:text-10xl text-center font-bold font-heading tracking-px-n leading-none">Our services</h2>
       <p class="mb-20 text-lg text-gray-600 text-center font-medium leading-normal md:max-w-lg mx-auto">Lorem ipsum dolor sit amet, to the con adipiscing. Volutpat tempor to the condimentum vitae vel purus.</p>
       <div class="flex flex-wrap -m-3 ">
@@ -531,9 +509,9 @@
 </section>
  
 
-<section class="relative pt-24 pb-36  bg-blueGray-100 overflow-hidden">
+<section class=" pt-24 pb-36  bg-blueGray-100 overflow-hidden">
   <img class="absolute bottom-0 left-1/2 transform -translate-x-1/2" src="flaro-images/contact/gradient.svg" alt="">
-  <div class="relative z-10 container px-4 mx-auto">
+  <div class=" z-10 container px-4 mx-auto">
     <h2 class="mb-5 text-6xl md:text-8xl xl:text-10xl text-center font-bold font-heading tracking-px-n leading-none">Get connected</h2>
     <p class="mb-20 text-lg  text-green-600 text-center font-medium leading-normal md:max-w-lg mx-auto">Lorem ipsum dolor sit amet, to the con adipiscing. Volutpat tempor to the condimentum vitae vel purus.</p>
     <div class="flex flex-wrap -m-3">

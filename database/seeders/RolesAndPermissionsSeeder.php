@@ -82,7 +82,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->givePermissionTo('delete-review');
         $adminRole->givePermissionTo('create-city');
         $adminRole->givePermissionTo('delete-city');
-
+      
         $adminRole->givePermissionTo('all-admins');
         $adminRole->givePermissionTo('create-admin');
         $adminRole->givePermissionTo('show-admin');

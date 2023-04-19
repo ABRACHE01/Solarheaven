@@ -119,10 +119,14 @@
         
           <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"   src="{{ asset('images/usersImages/' . $technician->user->image ) }}" alt="product designer">
       
-          <h1 class="text-lg text-gray-700">{{ $technician->user->name }}  </h1>
-          <h3 class="text-sm text-gray-400 "> {{ $technician->user->email}} </h3>
-          <h3 class="text-sm text-gray-400 "> {{ $technician->qualification}} </h3>
-          <p class="text-xs text-gray-400 mt-4"> {{ $technician->years_of_experience }} years of experience </p>
+          <h1 class="text-lg font-bold text-gray-700 dark:text-white">{{ $technician->user->name }}</h1>
+
+          <h3 class="text-lg font-bold text-gray-700 dark:text-white">{{ $technician->user->email }}</h3>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white">{{ $technician->user->phone_number }}</h2>
+          <h3 class="text-sm text-gray-400 m-4 "> {{ $technician->qualification}} </h3>
+          <p class="text-xs text-gray-400 "> {{ $technician->years_of_experience }} years of experience </p>
+
+          
 
           @if(Auth::user()->hasRole('client'))
           <button class="bg-green-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"> 

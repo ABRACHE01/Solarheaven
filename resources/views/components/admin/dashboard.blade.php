@@ -342,12 +342,17 @@
                                               <span aria-hidden class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
                                                               <span class="relative">{{ $appointment->status }}</span>
                                                               </span>
-                                            @else
+                                            @elseif($appointment->status == 'requested')
                                             <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
                                               <span aria-hidden class="absolute inset-0 bg-blue-200 opacity-50 rounded-full"></span>
                                                               <span class="relative">{{ $appointment->status }}</span>
                                                               </span>
 
+                                            @elseif($appointment->status == 'completed')
+                                            <span class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+                                              <span aria-hidden class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"></span>
+                                                              <span class="relative">{{ $appointment->status }}</span>
+                                                              </span>
                                             @endif
 
                                         </td>
@@ -567,8 +572,9 @@
                                         </span>
                       @endif
                     </a>
+                     </div>
                 @endforeach
-            </div>
+           
             @else
             <p class="text-center">No payments yet</p>
             @endif

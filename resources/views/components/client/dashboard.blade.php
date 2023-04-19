@@ -1,9 +1,7 @@
 
   <div class="h-full overflow-hidden ">
     <main id="dashboard-main" class="h-[calc(100vh-10rem)] overflow-auto px-4 py-10">
-      <!-- Put your content inside of the <main/> tag -->
-  
-      
+
       <section class="">
         <div class="w-auto mx-auto px-4 sm:px-6  md:px-8 relative ">
           <h1 class=" text-2xl font-black text-gray-800">Welcome <span class="text-green-500  ">{{ Auth::User()->name }}</span> !</h1>
@@ -148,7 +146,8 @@
                             </td>
 
                             <td class="p-2">
-                                <div class="text-left font-medium text-green-500">
+                                <div class="text-left text-green-500 font-smaller">
+                                    {{ $appointment->start_date }}
                                     {{ $appointment->start_time }}
                                 </div>
                             </td>
@@ -159,7 +158,7 @@
                                   <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
                                        <span class="relative">{{ $appointment->status }}</span>
                                 </span>  
-                                @elseif($appointment->status == 'canceled')
+                                @elseif($appointment->status == 'cancelled')
                                 <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
                                   <span aria-hidden class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
                                                   <span class="relative">{{ $appointment->status }}</span>
@@ -168,11 +167,11 @@
                                 <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
                                   <span aria-hidden class="absolute inset-0 bg-blue-200 opacity-50 rounded-full"></span>
                                                   <span class="relative">{{ $appointment->status }}</span>
-                                                  </span>
+                                  </span>
                                 @endif
 
                             </td>
-                            <td class="p-2  text-indigo-600">
+                            <td class="p-2   text-gray-600 text-center">
                                 {{ $appointment->created_at->diffForHumans() }}
                               </td>
                         </tr>
@@ -319,24 +318,6 @@
             @endforeach
             </div>
 
-            {{-- <div class="max-w-md rounded-lg border px-6 pt-6 pb-10   bg-white  w-full">
-              
-                <div class="flex justify-between">
-                    <p class="text-lg font-medium">Latest Clients </p>
-                    <a class="font-semibold text-green-600" href="{{ route('clients.index') }}">See all</a>
-                </div>
-                @foreach($latestClients as $client)
-                <a href="{{ route('clients.show', $client->id )}}">
-                <div class="flex items-center py-2">
-                  <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('images/usersImages/' . $client->user->image ) }}" alt="Simon Lewis" />
-                  <p class="ml-4 w-56">
-                    <strong class="block font-medium">{{ $client->user->name }}</strong>
-                    <span class="text-xs text-gray-400">{{ $client->user->email }} </span>
-                  </p>
-                </div>
-                </a>
-                @endforeach
-            </div> --}}
 
             <div class="rounded-lg border px-6 pt-6 pb-10  bg-white w-full">
                 <div class="flex justify-between">

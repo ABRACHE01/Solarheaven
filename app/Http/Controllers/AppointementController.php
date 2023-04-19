@@ -36,7 +36,7 @@ class AppointementController extends Controller
 
         if(auth()->user()->hasRole('technician')){  
 
-        $techappointments = Appointment::where('technician_id', auth()->user()->technician->id)->get();
+        $techappointments = Appointment::where('technician_id', auth()->user()->technician->id)->latest()->paginate(10);
 
         }else{
 
@@ -46,12 +46,21 @@ class AppointementController extends Controller
 
         if(auth()->user()->hasRole('client')){  
      
-            $clientappointments = Appointment::where('client_id', auth()->user()->client->id)->get();
+            $clientappointments = Appointment::where('client_id', auth()->user()->client->id)->latest()->paginate(10);
             }else{
                 $clientappointments = null;
             }
 
         return view('appointments.index', compact('appointments', 'techappointments', 'clientappointments'));
+    }
+
+    //trash appointments
+    public function canceled()
+    {
+        $canceledAppointments = Appointment::onlyTrashed()->get();
+        return view('appointments.canceled', compact('canceledAppointments'));
+
+        
     }
 
     public function create($service)
@@ -150,6 +159,7 @@ class AppointementController extends Controller
             
             $appointementdata = [
                 'client_name' => $appointment->client->user->name,
+                'client_email' => $appointment->client->user->email,
                 'client_phone' => $appointment->client->user->phone_number,
                 'service_name' => $appointment->service->name,
                 'service_price' => $appointment->service->price,
@@ -160,7 +170,7 @@ class AppointementController extends Controller
             ];
 
             Mail::to($appointment->client->user->email)->send(new TestEmail($appointementdata));
-            Mail::to($appointment->technician->user->email)->send(new TestEmail($appointementdata));
+            // Mail::to($appointment->technician->user->email)->send(new TestEmail($appointementdata));
 
         }
 
@@ -205,11 +215,6 @@ class AppointementController extends Controller
         return redirect()->route('appointments.canceled');
     }
 
-    //trash appointments
-    public function canceled()
-    {
-        $canceledAppointments = Appointment::onlyTrashed()->get();
-        return view('appointments.canceled', compact('canceledAppointments'));
-    }
+
 
 }

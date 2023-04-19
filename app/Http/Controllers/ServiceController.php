@@ -17,7 +17,7 @@ class ServiceController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('can:create-service')->only(['create', 'store']);
-        $this->middleware('can:edit-service')->only(['edit', 'update']);
+        $this->middleware('can:update-service')->only(['edit', 'update']);
         $this->middleware('can:delete-service')->only(['destroy']);
     }
     public function index()
@@ -88,25 +88,31 @@ class ServiceController extends Controller
         $newImageModel = null;
     
         if ($request->hasFile('url')) {
-            // delete old image
-            $oldImageModel = $service->images()->first();
-            if ($oldImageModel) {
-                $oldImageUrl = public_path('images/serviceImages/'.$oldImageModel->url);
-                if (file_exists($oldImageUrl)) {
-                    unlink($oldImageUrl);
+            // delete old images multiple
+            $oldImageModel = $service->images()->get();
+            foreach ($oldImageModel as $image) {
+                $imageUrl = public_path('images/serviceImages/'.$image->url);
+                if (file_exists($imageUrl)) {
+                    unlink($imageUrl);
                 }
-                $oldImageModel->delete();
+                $image->delete();
             }
-    
+
             // upload new image
-            $image = $request->file('url');
-            $image_name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('images/serviceImages');
-            $image->move($destinationPath, $image_name);
-            $newImageModel = new Image();
-            $newImageModel->url = $image_name;
-            $newImageModel->service_id = $service->id; // set service_id in the image table
-            $newImageModel->save();
+    
+            // Loop through the images
+            $images = $request->file('url') ;
+            foreach ($images as $image) {
+    
+                $image_name = time() . '_' . $image->getClientOriginalName();
+                $image->move($destinationPath, $image_name);
+    
+                Image::create([
+                    'url'=>$image_name,
+                    'service_id'=>$service->id
+                ]);
+            }
         }
     
         $service->save();

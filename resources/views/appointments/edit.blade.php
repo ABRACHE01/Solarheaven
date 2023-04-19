@@ -26,7 +26,7 @@
 <h4 class="md:text-8xl xl:text-1  text-center font-bold font-heading tracking-px-n pt-14 pb-14  leading-none "> Settings </h4>
 <div class="flex items-center justify-center ">
     <!-- Author: FormBold Team -->
-    <div class="mx-auto w-full max-w-[550px] bg-white ">
+    <div class="mx-auto w-full max-w-[550px]  ">
 
         @if (session('success'))
         <div class="alert alert-success">
