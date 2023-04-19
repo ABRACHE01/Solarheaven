@@ -1,66 +1,44 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SolarHaven 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+* ### ABOUT THE PROJECT:
 
-## About Laravel
+  management system for a solar energy company (SolarHaven) , that handeles CLIENT and thiere services with TECHNICIAN .
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ ## ADMINISTARION : 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* #### As a company staff member, I want to be able to add new clients to the system so that they can request services.
+* #### As a company staff member, I want to be able to add new technicians to the system so that they can be scheduled for appointments.
+* #### As a company staff member, I want to be able to assign technicians to appointments based on their availability.
+* #### As a company staff member, I want to be able to view a list of all technicians and their qualifications so that I can assign the appropriate technician to a job.
+* #### As a company staff member, I want to be able to send reminders to clients about upcoming appointments so that they don't forget.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+ ## CLIENT :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+ * #### As a client, I want to be able to request a service online so that I don't have to call the company.
+* #### As a client, I want to be able to see a list of services offered and their prices so that I can make informed decisions about what I need.
+* #### As a client, I want to be able to rate the service I received so that the company can improve its services.
+* #### As a client, I want to be able to cancel an appointment online so that I don't have to call the company.
+* #### As a client, I want to be able to see the status of my service request online so that I can know when to expect it to be completed.
+* #### As a client, I want to be able to schedule an appointment with a specific technician if I have worked with them before and was satisfied with their service .
+* #### As a client, I want to be able to see a history of the services I have received and the technician who provided them so that I can keep track of maintenance and repairs.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+ ## TECHNICIAN : 
+* #### As a technician, I want to be able to see a list of my scheduled appointments in that day so that I can plan my day.
+* #### As a technician, I want to be able to update my availability so that the company can schedule me for appointments.
+* #### As a technician, I want to be able to log the details of a service I have completed so that the company has a record of it.
+* #### As a technician, I want to be able to view a list of my upcoming appointments and their locations so that I can plan my travel.
+* #### As a technician, I want to be notified of any new appointments or changes to my schedule so that I can plan my work accordingly.  
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+ ## Technical specifications:  This project will be built using the following technologies:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+* ##### HTML
+* ##### CSS
+* ##### BOOTSRAP
+* ##### PHP
+* ##### JAVASCRIPT
+* ##### MYSQL
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
