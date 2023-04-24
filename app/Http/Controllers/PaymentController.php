@@ -7,6 +7,11 @@ use App\Models\Payment;
 
 class PaymentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:show-payments')->only(['index']);
+    }
     
     public function index()
     {

@@ -27,11 +27,6 @@
 
   <!-- Opened Nav in Mobile, you can use javascript/jQuery -->
   
-  {{-- <button id="nav-open" class="fixed top-0 right-0 z-10 p-2 m-2 text-white bg-green-700 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-  </button> --}}
   <div id="nav-opened" class="fixed left-0 right-0 hidden bg-white mx-2 mt-16 rounded-br rounded-bl shadow z-10">
       <div class="p-2 divide-y divide-gray-600 flex flex-col">
           <a href="#about" class="p-2 font-semibold hover:text-green-700">About</a>
@@ -92,7 +87,7 @@
             <div class="mx-4 text-center text-white">
                 <h1 class="font-bold text-6xl mb-5"> Book Your Appointement with Us </h1>
                 <div>
-                  <a href="#" class="inline-block rounded-md border border-transparent bg-green-400 px-8 py-3 text-center font-medium text-white hover:bg-green-700">Shop Collection</a>
+                  <a href="{{route('tech.index')}}" class="inline-block rounded-md border border-transparent bg-green-400 px-8 py-3 text-center font-medium text-white hover:bg-green-700">Reserve Technician</a>
     
                 </div>
             </div>
@@ -359,9 +354,9 @@
   <div class="w-full h-screen bg-center bg-no-repeat bg-cover" style="background-image: url('img/solar6.jpg');">
     <div class="w-full h-screen bg-opacity-50 bg-black flex justify-center items-center">
         <div class="mx-4 text-center text-white">
-            <h1 class="font-bold text-6xl mb-5"> Book Your Appointement with Us </h1>
+            <h1 class="font-bold text-6xl mb-5"> Book services with Us </h1>
             <div>
-              <a href="#" class="inline-block rounded-md border border-transparent bg-green-400 px-8 py-3 text-center font-medium text-white hover:bg-green-700">Shop Collection</a>
+              <a href="{{route('services.index')}}" class="inline-block rounded-md border border-transparent bg-green-400 px-8 py-3 text-center font-medium text-white hover:bg-green-700">Reserve service</a>
 
             </div>
         </div>
@@ -450,31 +445,7 @@
     @foreach ($latestReviews as $review)
 
     <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20">
-
-      <!-- Dropdown toggle button -->
-      <button id="dropdownDelayButton-{{ $review->id }}" data-dropdown-toggle="dropdownDelay-{{ $review->id }}"  class="absolute z-10 block float-right text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-green-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-        </svg>
-    </button>
-    <!-- Dropdown menu -->
-    <div class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" id="dropdownDelay-{{ $review->id }}">
-      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDelayButton-{{ $review->id }}">
-        <li>
-          <a href="{{ route('reviews.show', $review->id) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">show</a>
-        </li>
-        <li>
-          <a href="{{ route('reviews.edit', $review->id) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">edite</a>
-        </li>
-        <li>
-          <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >
-              {{ csrf_field() }}
-              {{ method_field('DELETE') }}
-              <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-          </li>    
-    </div>
-
+      
               <div class="flex justify-center items-center md:justify-end -mt-16">
                 <a href="{{route('clients.show', $review->appointment->client->id ) }}" class="w-20 h-20 object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "><img  class=" object-cover rounded-full  " src="{{ asset('images/usersImages/' . $review->appointment->client->user->image ) }}"></a>
                 <a href="{{route('tech.show', $review->appointment->technician->id ) }}" class="w-20 h-20 object-cover rounded-full border-2 -m-3  border-green-500 transform hover:scale-125 "> <img  class=" object-cover rounded-full  "  src="{{ asset('images/usersImages/' . $review->appointment->technician->user->image )}}"></a>

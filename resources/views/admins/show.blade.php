@@ -30,7 +30,7 @@
       </li>
       <li class="flex items-center py-3 text-sm">
         <span>Bio</span>
-        <span class="ml-auto">{{ $admin->bio }}</span>
+        <span class="ml-auto">{{ $admin->bio ?? 'No bio yet' }}</span>
       </li>
 
       <li class="flex items-center py-3 text-sm">

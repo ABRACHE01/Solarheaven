@@ -26,14 +26,16 @@
       </div>
     
       <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-
+        @if(  auth ()->check() && Auth::user()->hasRole('admin'))
         <h3 class="text-xl font-medium text-white">Add new technician</h3>
+        @endif
+        
         <p class="mt-1.5 max-w-[40ch] text-xs text-white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
           dicta impedit aperiam ipsum!
         </p>
 
-        @if(Auth::user()->hasRole('admin'))
+        @if(  auth ()->check() && Auth::user()->hasRole('admin'))
 
         <a href="{{ route('tech.create') }}" 
           class="inline-block px-5 py-3 mt-3 text-xs font-medium tracking-wide text-white uppercase bg-green-600"
@@ -91,8 +93,8 @@
         @foreach ($technicians as $technician)
         <span class=" relative bg-white font-semibold text-center rounded-3xl border shadow-lg p-10 max-w-xs">
             <!-- Dropdown toggle button -->
-
-            @if(Auth::user()->hasRole('admin'))
+        
+        @if(auth ()->check() && Auth::user()->hasRole('admin') )
             <button id="dropdownDelayButton-{{ $technician->id }}" data-dropdown-toggle="dropdownDelay-{{ $technician->id }}"  class="absolute z-10 block float-right text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-green-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
@@ -128,11 +130,11 @@
 
           
 
-          @if(Auth::user()->hasRole('client'))
+          @if( auth()->check() && Auth::user()->hasRole('client'))
           <button class="bg-green-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"> 
             <a href="{{ route('appointments.technician', $technician->id) }}">Hire Me</a>
           </button>
-          @elseif(Auth::user()->hasRole('admin')||Auth::user()->hasRole('technician'))
+          @elseif( auth()->check() && (Auth::user()->hasRole('admin')||Auth::user()->hasRole('technician')))
           <button class="bg-green-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"> 
             <a href="{{ route('tech.show', $technician->id) }}">View Profile</a>
           </button>

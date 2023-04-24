@@ -15,7 +15,7 @@ class TechnicianController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
 
         $this->middleware('can:create-technician')->only(['create', 'store']);
         $this->middleware('can:delete-technician')->only(['destroy']);

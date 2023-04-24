@@ -12,8 +12,6 @@ class CityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        
         $this->middleware('can:create-city')->only(['create', 'store']);
         $this->middleware('can:delete-city')->only(['destroy']);
     }

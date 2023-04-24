@@ -48,7 +48,7 @@
             
                 <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20">
 
-                  @if (Auth::user()->hasRole('admin')|| Auth::user()->client->id == $review->appointment->client->id )
+                  @if ( auth()->check() && (Auth::user()->hasRole('admin') || Auth::user()->client->id == $review->appointment->client->id) )
           <!-- Dropdown toggle button -->
           <button id="dropdownDelayButton-{{ $review->id }}" data-dropdown-toggle="dropdownDelay-{{ $review->id }}"  class="absolute z-10 block float-right text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-green-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">

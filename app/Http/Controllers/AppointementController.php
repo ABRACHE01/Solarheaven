@@ -26,6 +26,7 @@ class AppointementController extends Controller
         $this->middleware('can:show-appointment')->only(['show']);
         // $this->middleware('can:update-appointment')->only(['edit', 'update']);
         $this->middleware('can:delete-appointment')->only(['destroy']);
+        $this->middleware('can:show-cancelled-appointments')->only(['canceled']);
 
     }
 

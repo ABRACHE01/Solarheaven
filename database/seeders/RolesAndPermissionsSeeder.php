@@ -55,6 +55,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
         Permission::create(['name' => 'show-payments']);
 
+        Permission::create(['name' => 'show-cancelled-appointments']);
+
 
 
     
@@ -91,6 +93,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->givePermissionTo('show-caceled');
         $adminRole->givePermissionTo('delete-caceled'); 
         $adminRole->givePermissionTo('show-payments');
+
+        $adminRole->givePermissionTo('show-cancelled-appointments');
+
         // Technician
         $technicianRole->givePermissionTo('all-clients');
         $technicianRole->givePermissionTo('show-client');

@@ -25,13 +25,14 @@
             </div>
 
             <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-
+              @if(auth()->check() && Auth::user()->hasRole('admin'))
               <h3 class="text-xl font-medium text-white">Add new service</h3>
+              @endif
               <p class="mt-1.5 max-w-[40ch] text-xs text-white">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos sequi
                 dicta impedit aperiam ipsum!
               </p>
-              @if(Auth::user()->hasRole('admin'))
+              @if(auth()->check() && Auth::user()->hasRole('admin'))
               <span
                 class="inline-block px-5 py-3 mt-3 text-xs font-medium tracking-wide text-white uppercase bg-green-600"
               ><i class="fa fa-plus"></i> 
@@ -57,9 +58,9 @@
                 @foreach ($services as $service)
 
                 <div class="container group relative block overflow-hidden">
-                  <a href="{{route('admins.show', $service->admin->id ) }}"  class=" object-cover rounded-full w-10 h-10 transform hover:scale-110 absolute left-4 top-4 z-10 rounded-full bg-white  text-gray-900 transition hover:text-gray-900/75" ><img 
+                  <a href="{{route('admins.show', $service->admin->id ) }}"  class=" object-cover w-10 h-10 transform hover:scale-110 absolute left-4 top-4 z-10 rounded-full bg-white  text-gray-900 transition hover:text-gray-900/75" ><img 
                     src="{{asset('images/usersImages/'.$service->admin->user->image)}}"></a>
-                  @if(Auth::user()->hasRole('admin'))
+                  @if( auth()->check() && Auth::user()->hasRole('admin'))
                   <button id="dropdownDelayButton-{{ $service->id }}" data-dropdown-toggle="dropdownDelay-{{ $service->id }}" data-dropdown-delay="500" data-dropdown-trigger="hover" class="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
                     <span class="sr-only">Wishlist</span>
                     <svg
@@ -102,7 +103,7 @@
                     
                       
                          <div class="flex items-baseline">
-                          @if(Auth::user()->hasRole('client'))
+                          @if( auth()->check() && Auth::user()->hasRole('client'))
                           <a  href="{{ route('services.show', $service->id) }}"
                             class="whitespace-nowrap bg-teal-200 text-teal-800 px-3 py-1.5 text-xs font-medium"
                           >
@@ -130,18 +131,18 @@
                                 <i class="fas fa-star"></i>
                                 <span>
                                 </span>
-                                <span class="ml-2 text-gray-600 text-sm">34 reviews</span>
+                                <span class="ml-2 text-gray-600 text-sm"> 30 reviews</span>
                         </div>
   
 
-                          @if(Auth::user()->hasRole('client'))
+                          @if( auth()->check() && Auth::user()->hasRole('client'))
                             <button
                               class="block w-full rounded bg-green-100 p-4 text-sm font-medium transition hover:scale-105"
                             >
                             <a href="{{ route('appointments.service', $service->id) }}" >Book service</a>
                             </button>
 
-                            @elseif(Auth::user()->hasRole('admin') || Auth::user()->hasRole('technician'))
+                            @elseif( auth()->check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('technician')))
                             <button
                             class="block w-full rounded bg-green-100 p-4 text-sm  transition hover:scale-105 font-extrabold uppercase text-gray-500"
                           >

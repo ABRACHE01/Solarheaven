@@ -21,7 +21,7 @@
       </li>
       <li class="flex items-center py-3 text-sm">
         <span>Bio</span>
-        <span class="ml-auto">{{ $technician->bio }}</span>
+        <span class="ml-auto">{{ $technician->bio ?? 'No bio yet' }}</span>
       </li>
       <li class="flex items-center py-3 text-sm">
         <span>Email address</span>

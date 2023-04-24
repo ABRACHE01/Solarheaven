@@ -11,7 +11,11 @@ class ReviewController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->middleware('can:create-review')->only(['create', 'store']);
+        $this->middleware('can:delete-review')->only(['destroy']);
+        $this->middleware('can:update-review')->only(['edit', 'update']);
+        
 
     }
     public function index()
