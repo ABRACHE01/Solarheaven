@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->decimal('price', 8, 2);
-            $table->unsignedBigInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
-            $table->timestamps();
+            $table->id(); // id
+            $table->string('name'); // varchar
+            $table->text('description'); // text
+            $table->decimal('price', 8, 2); // 8 digits, 2 decimals
+            $table->unsignedBigInteger('admin_id'); // admin_id is a foreign key
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade'); // admin_id is a foreign key
+            $table->timestamps(); // created_at, updated_at
                    
         });
     }

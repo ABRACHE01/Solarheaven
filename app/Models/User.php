@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\City;
+use App\Models\Technician;
+use App\Models\Role;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Admin;
+use App\Models\Client;
+use App\Models\Notification;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , HasRoles ;
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +26,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'is_active',
+        'last_login',
+        'join_date',
+        'image',
         'password',
-         'role_id',
-          'is_active',
+        'phone_number',
+        'city_id', 
     ];
 
     /**
@@ -43,10 +53,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $table = 'users';
 
-    public function client()
+    public function city()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(City::class);
     }
 
     public function technician()
@@ -54,7 +65,12 @@ class User extends Authenticatable
         return $this->belongsTo(Technician::class);
     }
 
-    public function admin()
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+     public function admin()
     {
         return $this->belongsTo(Admin::class);
     }
@@ -63,10 +79,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
-   
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+
 
 }

@@ -10,15 +10,19 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_id',
         'appointment_id',
         'rating',
         'comment',
     ];
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class, 'client_id');
     }
     
- 
 }

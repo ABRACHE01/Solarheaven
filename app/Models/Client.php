@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     use HasFactory;
-
+ protected $table = 'clients';
     protected $fillable = [
-        'name', 'picture', 'phone_number', 'address', 'city_id', 'is_special_client', 'user_id',
+         'address', 'is_special_client', 'user_id',
     ];
+
+   
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function appointments()
@@ -27,6 +29,8 @@ class Client extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+  
 
 
 }

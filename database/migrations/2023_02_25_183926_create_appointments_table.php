@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->foreignId('service_id')->constrained('services')->onDelete('cascade'); 
             $table->foreignId('technician_id')->constrained('technicians')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->enum('status', ['requested', 'confirmed', 'completed', 'cancelled'])->default('requested');
+            $table->date('start_time');
+            $table->string('address')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->enum('status', ['requested', 'confirmed','completed', 'cancelled'])->default('requested');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
             $table->unique(['client_id', 'technician_id', 'start_time', 'end_time']);
